@@ -1,0 +1,54 @@
+@import "src/app/scss/styles.scss";
+
+.first-name-bigger-screen {
+  width: 45%;
+}
+
+.last-name-bigger-screen {
+  width: 50%;
+  // margin-left: 5%;
+}
+
+.first-last-name-smaller-screen {
+  width: 100%;
+}
+
+.use-my-email {
+  @include color-picker(#d15400);
+  cursor: pointer;
+}
+
+.password-smaller-screen {
+  width: 100%;
+}
+
+.password-bigger-screen {
+  width: 90%;
+}
+
+.confirm-smaller-screen {
+  width: 100%;
+  margin-top: 5%;
+}
+
+.confirm-bigger-screen {
+  width: 80%;
+}
+
+.tagline {
+  display: flex;
+  align-items: right;
+  justify-content: center;
+  flex-direction: column;
+  width: 15%;
+  text-align: center;
+  min-height: 40px;
+  color: #d15400
+}
+.mat-card[_ngcontent-c1] {
+  background: #e6e6e6;
+  color: #662900;
+}
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0 7px 7px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}

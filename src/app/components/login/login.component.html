@@ -1,0 +1,69 @@
+<div fxFlexFill fxLayout="column">
+  <div fxFlex fxLayoutAlign="center start" class="complete-box">
+    <mat-card>
+      <mat-card-title fxLayoutAlign="center">
+
+        <div class="orange-color"><strong>Fun</strong></div>
+        <div class="brown-color"><strong>doo</strong></div>
+        <div class="orange-color"><strong> Notes</strong></div>
+
+      </mat-card-title>
+
+      <mat-card-title fxLayoutAlign="center">
+        Sign In
+      </mat-card-title>
+
+      <mat-card-content fxLayoutAlign="center">
+        Use your fundoo account
+      </mat-card-content>
+
+      <form [formGroup]="loginForm">
+        <mat-card-content fxLayout="column">
+          <mat-form-field appearance="outline" hideRequiredMarker>
+            <mat-label>Email or phone</mat-label>
+            <input matInput required formControlName="emailFormControl" class="email-bar">
+          </mat-form-field>
+          <mat-form-field appearance="outline" hideRequiredMarker>
+            <mat-label>Password</mat-label>
+            <input type="password" matInput required formControlName="passwordFormControl" class="email-bar">
+          </mat-form-field>
+          <a fxLayoutAlign="start" class="forgot-email-button" (click)="forgotPassword()">
+            Forgot password?
+          </a>
+        </mat-card-content>
+      </form>
+
+      <!-- <div class="not-your-computer">
+        <mat-card-subtitle>
+          Not your computer? Use Guest mode to sign in privately.
+          <a fxLayoutAlign="start" class="learn-more">
+            Learn More
+          </a>
+        </mat-card-subtitle>
+      </div> -->
+
+      <div class="create-account-next-div" flexLayout="row" fxLayoutAlign="space-between">
+            <mat-card-content fxLayoutAlign="start">
+              <div style="margin-left:-13%">
+                <button (click)="onClick()" mat-raised-button class="next-button">
+                  <!-- Learn more class has same colour and no specific margin, hence used here -->
+                  Sign-Up
+                </button>
+                <!-- <mat-menu #menu="matMenu">
+                  <button (click)="onClick()" mat-menu-item>For Myself</button>
+                  <button mat-menu-item>To Manage My Business</button>
+                </mat-menu> -->
+              </div>
+            </mat-card-content>
+        <mat-card-content fxLayoutAlign="end">
+          <div>
+            <button (click)="logIn()" mat-raised-button class="next-button">
+              Next
+            </button>
+          </div>
+        </mat-card-content>
+      </div>
+
+    </mat-card>
+  </div>
+</div>
