@@ -16,20 +16,20 @@ export class DeletedNotesComponent implements OnInit {
 
 
     this.svc.events.addListener('deleted forever', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.fetchDeletedNotes();
     }
-    )
+    );
 
     this.svc.events.addListener('note-saved-again', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.fetchDeletedNotes();
-    })
+    });
 
     this.svc.events.addListener('note-deleted-in-archive', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.fetchDeletedNotes();
-    })
+    });
   }
 
 
@@ -37,20 +37,19 @@ export class DeletedNotesComponent implements OnInit {
     this.fetchDeletedNotes();
   }
   fetchDeletedNotes() {
-    //console.log("from deleted.ts function")
+    // console.log("from deleted.ts function")
     let obs = this.svc.fetchDeletedNotes();
     obs.subscribe((response: any) => {
       this.deletedNotesList = response.data.data;
-      //console.log(response.data.data);
-      //console.log("balle balle");
+
     }, (error) => {
       console.log(error);
-    })
+    });
   }
   deleteForever(note) {
     let data = {
       noteIdList: [note.id]
-    }
+    };
     this.svc.deleteForever(data);
 
   }
@@ -62,7 +61,7 @@ export class DeletedNotesComponent implements OnInit {
     let data = {
       noteIdList: [note.id],
       isDeleted: false
-    }
-    this.svc.saveRetrivedNote(data);
+    };
+  this.svc.saveRetrivedNote(data);
   }
 }

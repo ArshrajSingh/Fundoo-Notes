@@ -62,19 +62,13 @@ export class NotesComponent implements OnInit {
 
   // Delete a Note
   deleteNote(note) {
-    let data = {
-      noteIdList: [note.id],
-      isDeleted: true
-    };
+    let data = {noteIdList: [note.id], isDeleted: true };
     this.noteSvc.deleteNote(data);
   }
 
   // archive a note
   archiveNote(note) {
-    let data = {
-      noteIdList: [note.id],
-      isArchived: true
-    };
+    let data = {noteIdList: [note.id], isArchived: true };
     this.noteSvc.archiveNote(data);
   }
 

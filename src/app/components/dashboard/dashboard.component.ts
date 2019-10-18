@@ -8,7 +8,7 @@ import { NoteService } from 'src/app/services/note.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-components/dashboard',
+  selector: 'app-components-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -20,12 +20,9 @@ export class DashboardComponent {
 
   noteColor = new FormControl('#FFFFFF');
 
-  title = new FormControl('', [
-    Validators.required
-  ]);
+  title = new FormControl('', [Validators.required]);
 
-  content = new FormControl('', [
-  ]);
+  content = new FormControl('', [ ]);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -51,18 +48,11 @@ export class DashboardComponent {
 
   allNotes() {
     this.hideNoteBar = false;
-    this.router.navigate(['allNotes'] , {
-      relativeTo : this.route
-    }
-     );
+    this.router.navigate(['allNotes'] , {relativeTo : this.route} );
   }
 
   saveNote() {
-    let data = {
-      title: this.title.value,
-      description: this.content.value,
-      color: this.noteColor.value
-    };
+    let data = {title: this.title.value, description: this.content.value, color: this.noteColor.value };
     this.noteSvc.saveNote(data);
     this.title.setValue('');
     this.content.setValue('');

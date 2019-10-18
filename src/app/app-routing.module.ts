@@ -13,11 +13,11 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {
     path: 'dashboard', component: DashboardComponent,
-    children:[
-      {path:'deleted' , component:DeletedNotesComponent},
-      {path:'allNotes', component:NotesComponent},
-      {path:'', component:NotesComponent},
-      {path:'archive', component:ArchivedNotesComponent}
+    children: [
+      {path: 'deleted' , component: DeletedNotesComponent},
+      {path: 'allNotes', component: NotesComponent},
+      {path: '', component: NotesComponent},
+      {path: 'archive', component: ArchivedNotesComponent}
     ]
   },
   { path: 'resetpassword/:token', component: ResetPasswordComponent },
@@ -26,16 +26,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+  RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
   declarations: []
 })
 export class AppRoutingModule { }
-export const routingComponents = [
-                                    LoginComponent,
-                                    RegisterComponent,
-                                    ResetPasswordComponent,
-                                    DeletedNotesComponent,
-                                    DashboardComponent
-                                  ]

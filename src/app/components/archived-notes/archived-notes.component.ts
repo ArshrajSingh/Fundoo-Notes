@@ -14,32 +14,29 @@ export class ArchivedNotesComponent implements OnInit {
 
   constructor(private svc : NoteService) {
     this.svc.events.addListener('note-unarchived', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.fetchArchiveNotes();
-    })
+    });
 
       this.svc.events.addListener('note-deleted-in-archive', () => {
-        //Fetch all notes from database
+        // Fetch all notes from database
         this.fetchArchiveNotes();
-  })
+  });
   }
 
   ngOnInit() {
     this.fetchArchiveNotes();
   }
 
-  fetchArchiveNotes(){
+  fetchArchiveNotes() {
     let obs = this.svc.fetchArchiveNotes();
-    obs.subscribe((response:any) => {
+    obs.subscribe((response: any) => {
       this.archiveNotesList = response.data.data;
-      //console.log(response.data.data);
-      //console.log("balle balle");
     }, (error) => {
       console.log(error);
     })
   }
-  unarchive(note){
-    //console.log(note);
+  unarchive(note) {
     let data = {
       noteIdList: [note.id],
       isArchived: false
@@ -51,7 +48,7 @@ export class ArchivedNotesComponent implements OnInit {
     return !arg ? '	#FFFFFF' : arg;
   }
 
-  deleteArchiveNote(note){
+  deleteArchiveNote(note) {
     let data = {
       noteIdList: [note.id],
       isDeleted: true,
