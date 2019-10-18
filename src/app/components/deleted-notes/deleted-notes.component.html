@@ -1,0 +1,35 @@
+<div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="5px" fxLayoutAlign="space-around center">
+  <div *ngFor="let note of deletedNotesList.reverse()">
+      <mat-card [style.background-color]="getBackgroundColor(note.color)"
+          ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
+
+          <mat-card-title>
+              {{note.title}}
+          </mat-card-title>
+
+          <mat-card-content>
+              {{note.description}}
+          </mat-card-content>
+
+          <mat-card-actions>
+
+            <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
+
+                <div>
+                    <mat-icon  matTooltip="Delete" (click) = "deleteForever(note)">
+                        delete_forever
+                    </mat-icon>
+                </div>
+
+                <div>
+                    <mat-icon  matTooltip="Retrive" (click) = "saveNote(note)">
+                        autorenew
+                    </mat-icon>
+                </div>
+            </div>
+
+        </mat-card-actions>
+      </mat-card>
+  </div>
+</div>
+

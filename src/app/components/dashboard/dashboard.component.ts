@@ -5,15 +5,15 @@ import { map } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { FormControl, Validators } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-components-dashboard',
+  selector: 'app-components/dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-
+  hideNoteBar: Boolean = false;
   hide: Boolean = false;
   hideLogo: Boolean = false;
   advancedUser: Boolean = true;
@@ -32,8 +32,8 @@ export class DashboardComponent {
       map(result => result.matches)
     );
 
-constructor(private titleService: Title, private breakpointObserver: BreakpointObserver,
-  private router: Router, private noteSvc: NoteService) {
+  constructor(private titleService: Title, private breakpointObserver: BreakpointObserver,
+    private noteSvc: NoteService , private router: Router , private route: ActivatedRoute) {
     this.setTitle('Dashboard');
   }
 
@@ -49,8 +49,16 @@ constructor(private titleService: Title, private breakpointObserver: BreakpointO
     this.titleService.setTitle(newTitle);
   }
 
+  allNotes() {
+    this.hideNoteBar = false;
+    this.router.navigate(['allNotes'] , {
+      relativeTo : this.route
+    }
+     );
+  }
+
   saveNote() {
-    const data = {
+    let data = {
       title: this.title.value,
       description: this.content.value,
       color: this.noteColor.value
@@ -59,5 +67,15 @@ constructor(private titleService: Title, private breakpointObserver: BreakpointO
     this.title.setValue('');
     this.content.setValue('');
     this.noteColor.setValue('#FFFFFF');
+  }
+
+  fetchDeletedNotes() {
+    this.hideNoteBar = true;
+    this.router.navigate(['deleted'], {relativeTo: this.route});
+  }
+
+  fetchArchiveNotes() {
+    this.hideNoteBar = true;
+    this.router.navigate(['archive'], {relativeTo: this.route});
   }
 }

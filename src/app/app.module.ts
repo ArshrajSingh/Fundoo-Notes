@@ -19,6 +19,9 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NotesComponent } from './components/notes/notes.component';
+import { AllNotesComponent } from './components/all-notes/all-notes.component';
+import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
+import { ArchivedNotesComponent } from './components/archived-notes/archived-notes.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { NotesComponent } from './components/notes/notes.component';
     RegisterComponent,
     ResetPasswordComponent,
     DashboardComponent,
-    NotesComponent
+    NotesComponent,
+    AllNotesComponent,
+    DeletedNotesComponent,
+    ArchivedNotesComponent
   ],
   imports: [
     BrowserModule,

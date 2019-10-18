@@ -15,27 +15,36 @@ export class NotesComponent implements OnInit {
   constructor(private noteSvc: NoteService) {
 
     this.noteSvc.events.addListener('note-saved-in-database', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.fetchAllNotes();
-    })
+    });
 
     this.noteSvc.events.addListener('note-deleted-in-database', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.fetchAllNotes();
-    })
+    });
 
     this.noteSvc.events.addListener('note-archived-in-database', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.fetchAllNotes();
-    })
+    });
 
     this.noteSvc.events.addListener('note-color-changed-in-database', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.fetchAllNotes();
-    })
+    });
+
+    this.noteSvc.events.addListener('note-saved-again', () => {
+      // Fetch all notes from database
+      this.fetchAllNotes();
+    });
+      this.noteSvc.events.addListener('note-unarchived', () => {
+        // Fetch all notes from database
+        this.fetchAllNotes();
+    });
   }
 
-  //Fetch all notes
+  // Fetch all notes
   fetchAllNotes() {
     let obs = this.noteSvc.fetchAllNotes();
 
@@ -43,30 +52,30 @@ export class NotesComponent implements OnInit {
       this.notesList = response.data.data;
     }, (error) => {
       console.log(error);
-    })
+    });
   }
 
-  //Fetch all the existing notes from database
+  // Fetch all the existing notes from database
   ngOnInit() {
     this.fetchAllNotes();
   }
 
-  //Delete a Note
+  // Delete a Note
   deleteNote(note) {
     let data = {
       noteIdList: [note.id],
       isDeleted: true
-    }
-    this.noteSvc.deleteNote(data);  
+    };
+    this.noteSvc.deleteNote(data);
   }
 
-  //archive a note
+  // archive a note
   archiveNote(note) {
     let data = {
       noteIdList: [note.id],
       isArchived: true
-    }
-    this.noteSvc.archiveNote(data);  
+    };
+    this.noteSvc.archiveNote(data);
   }
 
   getBackgroundColor(arg) {

@@ -5,12 +5,10 @@
     </mat-icon>
 
     <div class="logo" style="margin-left: 4%">
-
       <div class="orange-color"><strong>Fun</strong></div>
       <div class="brown-color"><strong>doo</strong></div>
       <div class="orange-color"><strong> Notes</strong></div>
     </div>
-
     <!-- Search bar in header -->
     <div fxHide.xs="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
       <mat-icon style="margin-left:1%;color: grey" class="material-icons">search</mat-icon>
@@ -32,13 +30,13 @@
         <mat-icon class="material-icons" style="color: grey">search</mat-icon>
       </div>
       <div ngClass.xs=three-icons-in-header-smaller-screen>
-        <mat-icon matTooltip="refresh" class="material-icons" style="color: rgb(0, 0, 0)">refresh</mat-icon>
+        <mat-icon matTooltip="refresh" class="material-icons" style="color: black">refresh</mat-icon>
       </div>
       <div ngClass.gt-xs=three-icons-in-header-bigger-screen fxHide.xs="true">
-        <mat-icon matTooltip="List View" class="material-icons" style="color: rgb(0, 0, 0)">view_agenda</mat-icon>
+        <mat-icon matTooltip="List View" class="material-icons" style="color: black">view_agenda</mat-icon>
       </div>
       <div ngClass.gt-xs=three-icons-in-header-bigger-screen ngClass.xs=three-icons-in-header-smaller-screen>
-        <mat-icon matTooltip="Settings" class="material-icons" style="color: rgb(0, 0, 0)">settings</mat-icon>
+        <mat-icon matTooltip="Settings" class="material-icons" style="color: black">settings</mat-icon>
       </div>
 
     </div>
@@ -49,7 +47,7 @@
     <!-- Log Out Icon -->
     <div fxLayout="row" fxLayoutAlign="space-around" ngClass="log-out-icon">
       <!-- <mat-icon class="material-icons" style="color: grey">mood_bad</mat-icon> -->
-      <button mat-mini-fab color="" matTooltip="Log Out" (click)= logout()>
+      <button mat-mini-fab color="" matTooltip="Log Out" (click) =  logout()>
         <mat-icon>account_circle</mat-icon>
       </button>
     </div>
@@ -69,8 +67,8 @@
 
       <mat-nav-list style="margin-left:4%">
 
-        <mat-list-item class="sidenav-content">
-          <mat-icon class="material-icons">emoji_objects</mat-icon>
+        <mat-list-item class="sidenav-content" (click)="allNotes()">
+          <mat-icon class="material-icons" >emoji_objects</mat-icon>
           <h3 style="margin-left:18%">
             Notes
           </h3>
@@ -88,7 +86,6 @@
         <mat-list-item>
           <p>LABELS</p>
         </mat-list-item>
-
         <mat-list-item class="sidenav-content">
           <i class="material-icons">colorize</i>
           <h3 style="margin-left:18%">
@@ -99,16 +96,16 @@
         <mat-divider></mat-divider>
 
 
-        <mat-list-item class="sidenav-content" style="margin-top: 4%">
-          <mat-icon class="material-icons">archive</mat-icon>
+        <mat-list-item class="sidenav-content" style="margin-top: 4%" (click) = "fetchArchiveNotes()">
+          <mat-icon class="material-icons" >archive</mat-icon>
           <h3 style="margin-left:18%">
             Archive
           </h3>
         </mat-list-item>
 
 
-        <mat-list-item class="sidenav-content">
-          <i class="material-icons">delete_outline</i>
+        <mat-list-item class="sidenav-content" (click)="fetchDeletedNotes()">
+          <mat-icon class="material-icons" >delete_outline</mat-icon>
           <h3 style="margin-left:18%">
             Bin
           </h3>
@@ -125,9 +122,10 @@
       <div fxLayout="column" fxLayoutAlign="space-around center">
 
         <!-- Search bar-->
-        <div ngClass.xs="complete-search-bar-minimized" ngClass.gt-xs="complete-search-bar-maximized">
+        <div [fxHide]="hideNoteBar" ngClass.xs="complete-search-bar-minimized" ngClass.gt-xs="complete-search-bar-maximized">
 
           <!-- Minimized -->
+
           <mat-card class="search-bar-minimized" [fxHide]='hide' (click)='changeHide()' fxLayout="row"
             FxLayoutAlign="space-between center">
             <mat-card-subtitle style="width:70%; margin-top:-2em">
@@ -160,7 +158,7 @@
           </mat-card>
 
           <!-- Maximized -->
-          <mat-card style="border-radius : 10px;" ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'>
+          <mat-card style="border-radius : 10px;" ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide' [fxHide]='hideNoteBar'>
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
               <input [formControl]='title' matInput placeholder="Title">
               <mat-icon [fxHide]="!advancedUser" class="material-icons">
@@ -240,13 +238,17 @@
 
         </div>
 
+
+
         <!-- Notes -->
         <div style="width:60%">
 
           <!-- Notes Starting Point -->
 
-          <app-notes></app-notes>
+          <!-- <app-notes></app-notes> -->
 
+          <router-outlet>
+          </router-outlet>
           <!-- Notes Ending Point -->
 
 

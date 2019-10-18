@@ -17,11 +17,11 @@
 
 .extra-actions {
   mat-card-actions {
-    display: none;
+    visibility: hidden;
   }
   &:hover {
     mat-card-actions {
-      display: block;
+      visibility:visible;
     }
   }
 }
