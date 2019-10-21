@@ -7,30 +7,31 @@ import { EventEmitter } from 'events';
   providedIn: 'root'
 })
 export class NoteService {
-
+  token: String = localStorage.getItem('user');
   events = new EventEmitter();
 
   constructor(private http: HttpServiceService) { }
 
   fetchAllNotes(): any {
-    return this.http.get('notes/getNotesList');
+    return this.http.get('notes/getNotesList', this.token);
   }
   fetchDeletedNotes() {
     console.log('from service');
-    return this.http.get('notes/getTrashNotesList');
+    return this.http.get('notes/getTrashNotesList', this.token);
   }
   deleteForever(data) {
     console.log('from note.service');
-    const obs = this.http.post('notes/deleteForeverNotes', data);
+    let obs = this.http.postWithToken('notes/deleteForeverNotes', data, this.token);
     obs.subscribe((response) => {
       this.events.emit('deleted forever');
     }, error => {
+      console.log('syapa');
     });
 
   }
 
   saveRetrivedNote(data) {
-    const obs = this.http.post('notes/trashNotes', data);
+    let obs = this.http.postWithToken('notes/trashNotes', data, this.token);
     obs.subscribe(response => {
       // Note was saved successfully
       this.events.emit('note-saved-again');
@@ -39,12 +40,14 @@ export class NoteService {
     });
   }
 
+
   fetchArchiveNotes() {
     console.log('from service');
-    return this.http.get('notes/getArchiveNotesList');
+    return this.http.get('notes/getArchiveNotesList', this.token);
+
   }
   unarchive(data) {
-    const obs = this.http.post('notes/archiveNotes', data);
+    let obs = this.http.postWithToken('notes/archiveNotes', data, this.token);
     obs.subscribe(response => {
       // Note Archived
       this.events.emit('note-unarchived');
@@ -55,7 +58,7 @@ export class NoteService {
   }
 
   saveNote(data) {
-    const obs = this.http.post('notes/addNotes', data);
+    let obs = this.http.postWithToken('notes/addNotes', data, this.token);
     obs.subscribe(response => {
       // Note was saved successfully
       this.events.emit('note-saved-in-database');
@@ -64,8 +67,19 @@ export class NoteService {
     });
   }
 
+  updateNote(data) {
+    let obs = this.http.postWithToken('notes/updateNotes', data, this.token);
+    obs.subscribe(response => {
+      // Note was saved successfully
+      this.events.emit('note-updated-in-database');
+    }, error => {
+      // Some error came in saving notes
+    });
+  }
+
+
   deleteNote(data) {
-    const obs = this.http.post('notes/trashNotes', data);
+    let obs = this.http.postWithToken('notes/trashNotes', data, this.token);
     obs.subscribe(response => {
       // Note Deleted Successfully
       this.events.emit('note-deleted-in-database');
@@ -73,8 +87,9 @@ export class NoteService {
       // Some error in deleting Note
     });
   }
+
   deleteArchiveNote(data) {
-    const obs = this.http.post('notes/trashNotes', data);
+    let obs = this.http.postWithToken('notes/trashNotes', data, this.token);
     obs.subscribe(response => {
       // Note Deleted Successfully
       this.events.emit('note-deleted-in-archive');
@@ -84,7 +99,7 @@ export class NoteService {
   }
 
   changeNoteColor(data) {
-    const obs = this.http.post('notes/changesColorNotes', data);
+    let obs = this.http.postWithToken('notes/changesColorNotes', data, this.token);
     obs.subscribe(response => {
       // Color of note changed
       this.events.emit('note-color-changed-in-database');
@@ -94,7 +109,7 @@ export class NoteService {
   }
 
   archiveNote(data) {
-    const obs = this.http.post('notes/archiveNotes', data);
+    let obs = this.http.postWithToken('notes/archiveNotes', data, this.token);
     obs.subscribe(response => {
       // Note Archived
       this.events.emit('note-archived-in-database');

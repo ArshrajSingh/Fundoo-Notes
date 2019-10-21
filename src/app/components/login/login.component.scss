@@ -5,7 +5,7 @@
 }
 
 .forgot-email-button{
-  @include color-picker(#d15400);
+  @include color-picker(#440744);
   margin-left:0.25em;
   cursor: pointer;
   // pointer-events: all;
@@ -19,17 +19,12 @@
   margin-top: 15%;
 }
 
-.learn-more{
-  @include color-picker(cornflowerblue);
-  cursor: pointer;
-}
-
 .create-account-next-div{
   margin-top:15%;
 }
 
 .learn-more{
-  @include color-picker(#d15400);
+  @include color-picker(#440744);
   cursor: pointer;
 }
 
@@ -37,8 +32,8 @@
   margin-top:15%;
 }
 .mat-card {
-  background: #e6e6e6;
-  color: #662900;
+  background: rgba(213, 207, 233, 0.993);
+  color: #440744;
 }
 .mat-card:not([class*=mat-elevation-z]) {
   box-shadow: 0 7px 7px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);

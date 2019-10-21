@@ -77,10 +77,7 @@ export class NotesComponent implements OnInit {
   }
 
   changeColor(card) {
-    let data = {
-      noteIdList: [card.id],
-      color: this.noteColor.value
-    };
+    let data = {noteIdList: [card.id], color: this.noteColor.value};
     this.noteSvc.changeNoteColor(data);
   }
 }

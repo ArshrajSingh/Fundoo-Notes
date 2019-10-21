@@ -1,5 +1,5 @@
 .sidenav-bigger-screen {
-  width: 23%;
+  width: 20%;
 }
 
 .sidenav-smaller-screen {
@@ -14,11 +14,10 @@
 
 .search-box-in-header {
   margin-left: 6%;
-  border-radius: 5px;
-  border: 1px solid rgb(251, 251, 251);
+  border-radius: 10px;
   height: 35px;
   width: 50%;
-  background-color: white;
+  background-color: rgba(213, 207, 233, 0.993);
 }
 
 .three-icons-in-header-bigger-screen {
@@ -41,7 +40,7 @@
 
 .sidenav-content {
   &:hover {
-    background-color: rgb(254, 239, 195);
+    background-color: #02aaf8;
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
   }
@@ -94,10 +93,29 @@
 }
 
 .mat-toolbar {
-  background: #ffbf00;
-  color: rgba(0,0,0,.87);
+  background: #440744;
+  color: rgba(200, 187, 247, 0.993);
 }
 .mat-fab, .mat-flat-button, .mat-mini-fab, .mat-raised-button {
-  color: #ffbf00;
-  background-color: #d15400;
+  color: white;
+  background-color: #cc0891;
+}
+
+.mat-drawer-container {
+  background-color:rgba(213, 207, 233, 0.993);
+  color:#440744;
+}
+.mat-drawer {
+  background-color:rgba(200, 187, 247, 0.993);
+  color: #440744;
+}
+.mat-card {
+  background: #ffffff;
+  color: #440744;
+}
+.sideNavText{
+  color: #440744;
+}
+.sidenav-content{
+  color: #440744;
 }

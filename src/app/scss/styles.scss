@@ -23,13 +23,21 @@ body {
 }
 
 .orange-color {
-  @include color-picker(#d15400);
+  @include color-picker(#02aaf8);
 }
 .brown-color{
-  @include color-picker(#662900);
+  @include color-picker(#cc0891);
 }
 
 .next-button{
-  background-color:#d15400;
-  color: white;
+  background-color:#440744;
+  color: #e6e6e6;
+}
+.background {
+  background-image: url("https://i.pinimg.com/originals/a4/9b/5e/a49b5ee36c7e33298b259b2c099ad186.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: #cc0891 !important;
 }

@@ -39,17 +39,11 @@ export class DeletedNotesComponent implements OnInit {
   fetchDeletedNotes() {
     // console.log("from deleted.ts function")
     let obs = this.svc.fetchDeletedNotes();
-    obs.subscribe((response: any) => {
-      this.deletedNotesList = response.data.data;
-
-    }, (error) => {
-      console.log(error);
-    });
+    obs.subscribe((response: any) => {this.deletedNotesList = response.data.data; },
+      (error) => {console.log(error); });
   }
   deleteForever(note) {
-    let data = {
-      noteIdList: [note.id]
-    };
+    let data = {noteIdList: [note.id]};
     this.svc.deleteForever(data);
 
   }
@@ -58,10 +52,7 @@ export class DeletedNotesComponent implements OnInit {
   }
 
   saveNote(note) {
-    let data = {
-      noteIdList: [note.id],
-      isDeleted: false
-    };
+    let data = {noteIdList: [note.id], isDeleted: false};
   this.svc.saveRetrivedNote(data);
   }
 }

@@ -21,7 +21,6 @@ export class DashboardComponent {
   noteColor = new FormControl('#FFFFFF');
 
   title = new FormControl('', [Validators.required]);
-
   content = new FormControl('', [ ]);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)

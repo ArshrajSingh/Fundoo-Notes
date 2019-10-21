@@ -12,7 +12,7 @@ export class ArchivedNotesComponent implements OnInit {
   noteColor = new FormControl('#FFFFFF');
   archiveNotesList: Array<any> = [];
 
-  constructor(private svc : NoteService) {
+  constructor(private svc: NoteService) {
     this.svc.events.addListener('note-unarchived', () => {
       // Fetch all notes from database
       this.fetchArchiveNotes();
@@ -29,18 +29,15 @@ export class ArchivedNotesComponent implements OnInit {
   }
 
   fetchArchiveNotes() {
-    let obs = this.svc.fetchArchiveNotes();
+    const obs = this.svc.fetchArchiveNotes();
     obs.subscribe((response: any) => {
       this.archiveNotesList = response.data.data;
     }, (error) => {
       console.log(error);
-    })
+    });
   }
   unarchive(note) {
-    let data = {
-      noteIdList: [note.id],
-      isArchived: false
-    }
+    const data = { noteIdList: [note.id], isArchived: false };
     this.svc.unarchive(data);
   }
 
@@ -49,14 +46,8 @@ export class ArchivedNotesComponent implements OnInit {
   }
 
   deleteArchiveNote(note) {
-    let data = {
-      noteIdList: [note.id],
-      isDeleted: true,
-      isArchived: false
-    }
+    const data = {noteIdList: [note.id], isDeleted: true, isArchived: false };
     this.svc.deleteArchiveNote(data);
 
   }
-
-
 }

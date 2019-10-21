@@ -14,7 +14,7 @@
 }
 
 .use-my-email {
-  @include color-picker(#d15400);
+  @include color-picker(#440744);
   cursor: pointer;
 }
 
@@ -46,8 +46,8 @@
   color: #d15400
 }
 .mat-card[_ngcontent-c1] {
-  background: #e6e6e6;
-  color: #662900;
+  background: rgba(213, 207, 233, 0.993);
+  color: #440744;
 }
 .mat-card:not([class*=mat-elevation-z]) {
   box-shadow: 0 7px 7px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);

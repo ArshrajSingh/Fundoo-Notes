@@ -1,4 +1,4 @@
-<div fxFlexFill fxLayout="column">
+<div fxFlexFill fxLayout="column" class="background">
   <div fxFlex fxLayoutAlign="center start" class="complete-box">
     <mat-card>
       <mat-card-title fxLayoutAlign="center">
@@ -36,7 +36,7 @@
       <div class="create-account-next-div" flexLayout="row" fxLayoutAlign="space-between">
         <mat-card-content fxLayoutAlign="start">
           <div style="margin-left:-13%">
-            <button mat-button [matMenuTriggerFor]="menu" class="learn-more">
+            <button mat-button [matMenuTriggerFor]="menu" mat-raised-button class="next-button">
               <!-- Learn more class has same colour and no specific margin, hence used here -->
               Create Account
             </button>
