@@ -12,49 +12,35 @@ export class HttpServiceService {
 
   constructor(private http: HttpClient, private router: Router) {
   }
- //
 
-  // private tokenSource = new BehaviorSubject('');
-  // currentToken = this.tokenSource.asObservable();
-
-  // changeToken(newToken: string) {
-  //   this.tokenSource.next(newToken);
-
-
-  // get(url,token) {
-  //   let obs = this.http.get(environment.domainURL + url, {
-  //     headers: new HttpHeaders({
-  //       'Authorization': this.token
-
-  // })
-  // return obs;
-  //   )}
   get(url, token) {
-    return this.http.get(environment.domainURL + url, {
+    let obs = this.http.get(environment.domainURL + url, {
       headers: new HttpHeaders({
         'Authorization': token
       })
     });
-  }
-
-  post(url, data) {
-    const obs = this.http.post(environment.domainURL + url, data);
     return obs;
   }
 
-  put(url, data, token) {
-    const obs = this.http.put(environment.domainURL + url, data,  {
-      headers: new HttpHeaders({
-        'Authorization': token
-      })});
+  post(url, data) {
+    let obs = this.http.post(environment.domainURL + url, data)
     return obs;
   }
 
   postWithToken(url, data, token) {
-    const obs = this.http.post(environment.domainURL + url, data, {
+    let obs = this.http.post(environment.domainURL + url, data, {
       headers: new HttpHeaders({
         'Authorization': token
-      })});
+      })
+    });
+    return obs;
+  }
+  delete(url, token) {
+    let obs = this.http.delete(environment.domainURL + url , {
+      headers: new HttpHeaders({
+        'Authorization': token
+      })
+    });
     return obs;
   }
 }

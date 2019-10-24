@@ -7,8 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatInputModule, MatListModule,
-  MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule, 
-  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule
+  MatCardModule, MatFormFieldModule, MatMenuModule, MatSelectModule,
+  MatOptionModule, MatIconModule, MatSnackBarModule, MatSidenavModule,
+  MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatExpansionModule, MatDialogModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/register/register.component';
@@ -22,6 +23,8 @@ import { NotesComponent } from './components/notes/notes.component';
 import { AllNotesComponent } from './components/all-notes/all-notes.component';
 import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.component';
 import { ArchivedNotesComponent } from './components/archived-notes/archived-notes.component';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { CollaboratorComponent } from './components/collaborator/collaborator.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,13 @@ import { ArchivedNotesComponent } from './components/archived-notes/archived-not
     NotesComponent,
     AllNotesComponent,
     DeletedNotesComponent,
-    ArchivedNotesComponent
+    ArchivedNotesComponent,
+    DialogComponent,
+    CollaboratorComponent
+  ],
+  entryComponents: [
+    DialogComponent,
+    CollaboratorComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +67,8 @@ import { ArchivedNotesComponent } from './components/archived-notes/archived-not
     MatOptionModule,
     FlexLayoutModule,
     HttpClientModule,
-    LayoutModule
+    LayoutModule,
+    MatDialogModule
   ],
   providers: [
     HttpServiceService,
