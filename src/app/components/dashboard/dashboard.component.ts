@@ -18,6 +18,11 @@ export class DashboardComponent {
   hideLogo: Boolean = false;
   advancedUser: Boolean = true;
 
+
+  searchData = {
+    data: ''
+  };
+
   noteColor = new FormControl('#FFFFFF');
 
   title = new FormControl('', [Validators.required]);
@@ -66,5 +71,15 @@ export class DashboardComponent {
   fetchArchiveNotes() {
     this.hideNoteBar = true;
     this.router.navigate(['archive'], {relativeTo: this.route});
+  }
+
+  onStatusChanged(finished: Boolean) {
+    if (finished) {
+      this.noteSvc.searchData(this.searchData.data);
+    }
+  }
+
+  clearSearch() {
+    this.searchData.data = '';
   }
 }

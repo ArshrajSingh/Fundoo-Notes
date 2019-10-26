@@ -1,5 +1,5 @@
 <div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around center">
-    <div *ngFor="let note of notesList">
+    <div *ngFor="let note of notesList | searchFilter : search">
             <mat-card  [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived && note.isPined"
                 ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
 
@@ -84,7 +84,7 @@
     <br>
 
 <div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around center">
-    <div *ngFor="let note of notesList.reverse()">
+    <div *ngFor="let note of notesList.reverse() | searchFilter : search">
         <mat-card  [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && !note.isArchived && !note.isPined"
             ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
 
@@ -113,7 +113,7 @@
                 <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
 
                         <div>
-                                <mat-icon  [matMenuTriggerFor]="menu1" matTooltip="Remind Me">
+                                <mat-icon  matTooltip="Remind Me">
                                     notifications_none
                                 </mat-icon>
                             </div>

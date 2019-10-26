@@ -13,10 +13,15 @@
     <div fxHide.xs="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
       <mat-icon style="margin-left:1%;color: #440744" class="material-icons">search</mat-icon>
       <div style="margin-left:5%">
-        <mat-form-field appearance="fill legacy" style="width:300%; margin-top: 8%">
-          <input matInput placeholder="Search">
+        <mat-form-field appearance="fill legacy" style="width:335%; margin-top: 8%">
+          <input matInput placeholder="Search" [(ngModel)]="searchData.data" (keyup)="onStatusChanged($event)">
         </mat-form-field>
       </div>
+      <button mat-button mat-icon-button style="margin-left:55%;color: #440744" (click)="clearSearch();onStatusChanged($event);">
+          <i class="material-icons">
+            close
+          </i>
+        </button>
     </div>
 
     <!-- This fills the remaining space of the current row -->

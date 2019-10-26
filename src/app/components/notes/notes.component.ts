@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NoteService } from 'src/app/services/note.service';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
@@ -13,6 +13,8 @@ export interface DialogData {
   user: string;
 }
 
+
+
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
@@ -23,6 +25,9 @@ export class NotesComponent implements OnInit {
   noteColor = new FormControl('#FFFFFF');
   notesList: Array<any> = [];
   public icon = ' star_border';
+
+  @Input() search;
+
   constructor(private noteSvc: NoteService, private dialog: MatDialog) {
 
     this.noteSvc.events.addListener('note-saved-in-database', () => {
@@ -89,6 +94,10 @@ export class NotesComponent implements OnInit {
   // Fetch all the existing notes from database
   ngOnInit() {
     this.fetchAllNotes();
+
+    this.noteSvc.currentDataSearch.subscribe((search: any) => {
+      this.search = search;
+    });
   }
 
   // Delete a Note
@@ -134,26 +143,17 @@ export class NotesComponent implements OnInit {
   }
   PinNote(note) {
 
-    const data = {
-
-      noteIdList: [note.id],
-      isPined: true
-    };
+    const data = {noteIdList: [note.id], isPined: true};
     this.noteSvc.PinNote(data);
   }
   unPinNote(note) {
 
-    const data = {
-
-      noteIdList: [note.id],
-      isPined: false
-    };
+    const data = {noteIdList: [note.id], isPined: false};
     this.noteSvc.PinNote(data);
   }
   addCollab(note) {
-    this.dialog.open(CollaboratorComponent, {
-      width: '500px',
-      data: {
+    this.dialog.open(CollaboratorComponent, {width: '500px',
+    data: {
         noteId: note.id,
         title: note.title,
         description: note.description,

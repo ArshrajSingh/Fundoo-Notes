@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NoteService } from 'src/app/services/note.service';
 import { FormControl } from '@angular/forms';
 
@@ -11,6 +11,8 @@ export class ArchivedNotesComponent implements OnInit {
 
   noteColor = new FormControl('#FFFFFF');
   archiveNotesList: Array<any> = [];
+
+  @Input() search;
 
   constructor(private svc: NoteService) {
     this.svc.events.addListener('note-unarchived', () => {
@@ -26,6 +28,9 @@ export class ArchivedNotesComponent implements OnInit {
 
   ngOnInit() {
     this.fetchArchiveNotes();
+    this.svc.currentDataSearch.subscribe((search: any) => {
+      this.search = search;
+    });
   }
 
   fetchArchiveNotes() {

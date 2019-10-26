@@ -1,5 +1,5 @@
 <div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="5px" fxLayoutAlign="space-around center">
-  <div *ngFor="let note of archiveNotesList.reverse()" >
+  <div *ngFor="let note of archiveNotesList.reverse() | searchFilter : search" >
       <mat-card [style.background-color]="getBackgroundColor(note.color)" *ngIf="!note.isDeleted && note.isArchived"
           ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
 

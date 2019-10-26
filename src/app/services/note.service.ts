@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpServiceService } from './http-service.service';
 import { EventEmitter } from 'events';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -11,6 +12,11 @@ export class NoteService {
   events = new EventEmitter();
   string: Array<string> = [];
   array: Array<string> = [];
+  search:any;
+
+  private searchDataSource = new BehaviorSubject(this.search);
+  currentDataSearch = this.searchDataSource.asObservable();
+
 
   constructor(private http: HttpServiceService) { }
 
@@ -41,7 +47,10 @@ export class NoteService {
       // Some error came in saving notes
     });
   }
-
+  searchData(search: String) {
+    this.search = search;
+    this.searchDataSource.next(search);
+  }
 
   fetchArchiveNotes() {
     console.log('from service');

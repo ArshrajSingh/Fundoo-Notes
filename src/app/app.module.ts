@@ -25,6 +25,7 @@ import { DeletedNotesComponent } from './components/deleted-notes/deleted-notes.
 import { ArchivedNotesComponent } from './components/archived-notes/archived-notes.component';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { CollaboratorComponent } from './components/collaborator/collaborator.component';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CollaboratorComponent } from './components/collaborator/collaborator.co
     DeletedNotesComponent,
     ArchivedNotesComponent,
     DialogComponent,
-    CollaboratorComponent
+    CollaboratorComponent,
+    SearchFilterPipe
   ],
   entryComponents: [
     DialogComponent,
