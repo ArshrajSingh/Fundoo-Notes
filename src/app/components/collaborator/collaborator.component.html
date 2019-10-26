@@ -1,17 +1,17 @@
 <mat-card>
-    <mat-card-title>{{data.user}}(owner)</mat-card-title>
-    <div>
-    <mat-card-content *ngFor="let user of array">{{user}}
-      <mat-icon  (click)="removeCollaborator(user)" class="align" matTooltip="remove">close</mat-icon>
+  <mat-card-title>{{data.user}}(owner)</mat-card-title>
+  <div>
+  <mat-card-content *ngFor="let user of data.collaborator">{{user.email}}
+    <mat-icon  (click)="removeCollaborator(user.email)" class="align" matTooltip="remove">close</mat-icon>
 
-    </mat-card-content>
-    </div>
-    <mat-card-actions>
-    <div>
-            <button (click)="getUser()" mat-button [matMenuTriggerFor]="menu">add</button>
-            <mat-menu #menu="matMenu">
-              <button (click)="searchUserList(user)" *ngFor="let user of obj" mat-menu-item>{{user}}</button>
-            </mat-menu>
-    </div>
-    </mat-card-actions>
-    </mat-card>
+  </mat-card-content>
+  </div>
+  <mat-card-actions>
+  <div>
+          <button  (click)="getUser()" mat-raised-button [matMenuTriggerFor]="menu">add</button>
+          <mat-menu #menu="matMenu">
+            <button (click)="searchUserList(user)" *ngFor="let user of obj" mat-menu-item>{{user}}</button>
+          </mat-menu>
+  </div>
+  </mat-card-actions>
+  </mat-card>

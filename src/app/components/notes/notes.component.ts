@@ -11,6 +11,7 @@ export interface DialogData {
   description: string;
   color: string;
   user: string;
+  collaborator: string[];
 }
 
 
@@ -158,7 +159,8 @@ export class NotesComponent implements OnInit {
         title: note.title,
         description: note.description,
         color: note.color,
-        user: note.user.email
+        user: note.user.email,
+        collaborator: note.collaborators
       }
     });
   }

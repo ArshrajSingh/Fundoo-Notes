@@ -11,13 +11,13 @@
     </div>
     <!-- Search bar in header -->
     <div fxHide.xs="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
-      <mat-icon style="margin-left:1%;color: #440744" class="material-icons">search</mat-icon>
+      <!-- <mat-icon style="margin-left:1%;color: #440744" class="material-icons">search</mat-icon> -->
       <div style="margin-left:5%">
         <mat-form-field appearance="fill legacy" style="width:335%; margin-top: 8%">
-          <input matInput placeholder="Search" [(ngModel)]="searchData.data" (keyup)="onStatusChanged($event)">
+          <input matInput placeholder="Search your notes" [(ngModel)]="searchData" (keyup)="onStatusChanged()">
         </mat-form-field>
       </div>
-      <button mat-button mat-icon-button style="margin-left:55%;color: #440744" (click)="clearSearch();onStatusChanged($event);">
+      <button mat-button mat-icon-button style="margin-left:60%;color: #440744" (click)="clearSearch();onStatusChanged();">
           <i class="material-icons">
             close
           </i>
@@ -31,9 +31,9 @@
     <!-- Three Icons -->
     <div fxLayout="row" fxLayoutAlign="space-around" style="margin-top: 1%; margin-left:5%">
 
-      <div fxHide.gt-xs="true">
+      <!-- <div fxHide.gt-xs="true">
         <mat-icon class="material-icons" style="color: #440744">search</mat-icon>
-      </div>
+      </div> -->
       <div ngClass.xs=three-icons-in-header-smaller-screen>
         <mat-icon matTooltip="refresh" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">refresh</mat-icon>
       </div>
@@ -62,7 +62,7 @@
 <!-- Rest of Page -->
 <div style="display: flex; flex-flow: column">
 
-  <mat-sidenav-container style="min-height: 1000px">
+  <mat-sidenav-container style="min-height: 605px">
 
 
     <!-- Side nav bar contents -->
@@ -242,8 +242,6 @@
           </mat-card>
 
         </div>
-
-
 
         <!-- Notes -->
         <div style="width:60%">
