@@ -25,7 +25,6 @@ export class NotesComponent implements OnInit {
 
   noteColor = new FormControl('#FFFFFF');
   notesList: Array<any> = [];
-  public icon = ' star_border';
 
   @Input() search;
 

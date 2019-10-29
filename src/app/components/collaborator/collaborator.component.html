@@ -10,7 +10,7 @@
   <div>
           <button  (click)="getUser()" mat-raised-button [matMenuTriggerFor]="menu">add</button>
           <mat-menu #menu="matMenu">
-            <button (click)="searchUserList(user)" *ngFor="let user of obj" mat-menu-item>{{user}}</button>
+            <button *ngFor="let user of obj" (click)="searchUserList(user)" mat-menu-item>{{user}}</button>
           </mat-menu>
   </div>
   </mat-card-actions>

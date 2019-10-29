@@ -12,7 +12,7 @@ export class NoteService {
   events = new EventEmitter();
   string: Array<string> = [];
   array: Array<string> = [];
-  search:any;
+  search: any;
 
   private searchDataSource = new BehaviorSubject(this.search);
   currentDataSearch = this.searchDataSource.asObservable();
@@ -146,11 +146,6 @@ export class NoteService {
         this.array.push(response[i].email);
       }
       localStorage.setItem('string', JSON.stringify(this.array));
-      // console.log(localStorage.getItem('string'));
-      // for(let i=0;i<response.length;i++){
-      //   console.log(response[i].email)
-      // }
-
     });
   }
 
