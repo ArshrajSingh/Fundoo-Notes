@@ -5,6 +5,7 @@
     </mat-icon>
 
     <div class="logo" style="margin-left: 4%">
+      <img src="/src/spring-square.png">
       <div class="orange-color"><strong>Fun</strong></div>
       <div class="brown-color"><strong>doo</strong></div>
       <div class="orange-color"><strong> Notes</strong></div>
@@ -37,9 +38,10 @@
       <div ngClass.xs=three-icons-in-header-smaller-screen>
         <mat-icon matTooltip="refresh" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">refresh</mat-icon>
       </div>
-      <div ngClass.gt-xs=three-icons-in-header-bigger-screen fxHide.xs="true">
-        <mat-icon matTooltip="List View" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">view_list</mat-icon>
-      </div>
+      <div ngClass.gt-xs=three-icons-in-header-bigger-screen >
+          <div fxLayoutAlign="center center" *ngIf="toggleView" (click)="toggleViewNote()" fxHide.lt-sm="true" matTooltip="List view"><mat-icon style="color: rgba(200, 187, 247, 0.993)">list</mat-icon></div>
+          <div fxLayoutAlign="center center" *ngIf="!toggleView" (click)="toggleViewNote()" fxHide.lt-sm="true" matTooltip="Grid view"><mat-icon style="color: rgba(200, 187, 247, 0.993)">view_comfy</mat-icon></div>
+        </div>
       <div ngClass.gt-xs=three-icons-in-header-bigger-screen ngClass.xs=three-icons-in-header-smaller-screen>
         <mat-icon matTooltip="Settings" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">settings</mat-icon>
       </div>
@@ -87,16 +89,22 @@
         </mat-list-item>
 
         <mat-divider></mat-divider>
+        <mat-list-item class="sideNavText">
+            <p>LABELS</p>
+          </mat-list-item>
+          <mat-list-item *ngFor="let label of labelArray">
+            <mat-icon class="sideNavText">label</mat-icon>
+            <h3 (click)="showLabels(label.label)" class="sideNavText" style="margin-left:18%">
+              {{label.label}}
+            </h3>
+          </mat-list-item>
+          <mat-list-item class="sidenav-content">
 
-        <mat-list-item>
-          <p>LABELS</p>
-        </mat-list-item>
-        <mat-list-item class="sidenav-content">
-          <i class="material-icons">edit</i>
-          <h3 class="sideNavText" style="margin-left:18%">
-            Edit labels
-          </h3>
-        </mat-list-item>
+            <i class="material-icons">colorize</i>
+            <h3 style="margin-left:18%" (click)="labels()">
+              Edit labels
+            </h3>
+          </mat-list-item>
 
         <mat-divider></mat-divider>
 

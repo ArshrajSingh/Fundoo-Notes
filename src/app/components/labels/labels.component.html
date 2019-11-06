@@ -1,0 +1,7 @@
+<mat-form-field appearance="fill legacy">
+    <div *ngFor="let user of data.labelArray">
+      <h3><mat-icon (click)="removeSideLabel(user.id)">delete</mat-icon>{{user.label}}</h3>
+      </div>
+    <input matInput placeholder="add label" [(ngModel)]='name'>
+  </mat-form-field>
+  <button (click)="addLabel()"><mat-icon>check_circle</mat-icon></button>

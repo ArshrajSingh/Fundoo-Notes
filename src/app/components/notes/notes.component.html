@@ -1,6 +1,7 @@
-<div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around center">
+<div [fxLayout.gt-xs]="notesView?'row wrap':'column'"  fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around center">
   <div *ngFor="let note of notesList.reverse() | searchFilter : search">
-    <mat-card [style.background-color]="getBackgroundColor(note.color)"
+    <mat-card [style.background-color]="getBackgroundColor(note.color)"[style.min-width]="notesView?'':'200%'" [style.max-width]="notesView?'':'300%'"
+
       *ngIf="!note.isDeleted && !note.isArchived && note.isPined" ngClass.lt-md="note-smaller-screen"
       ngClass.gt-md="note-bigger-screen" class="extra-actions">
 
@@ -22,6 +23,11 @@
           <button mat-mini-fab>{{user.firstName.charAt(0)}}</button>
         </mat-card-content>
       </div>
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-card-content   *ngFor="let user of note.noteLabels">
+                 <mat-chip-list><mat-chip>{{user.label}}<mat-icon (click)="removeLabel(note,user.id)">close</mat-icon></mat-chip></mat-chip-list>
+             </mat-card-content>
+             </div>
 
       <mat-card-actions>
 
@@ -70,6 +76,10 @@
             </mat-icon>
             <mat-menu #menu="matMenu">
               <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+              <button [matMenuTriggerFor]="menu1" (click)="getLabels()"mat-menu-item >add label</button>
+                            <mat-menu #menu1="matMenu">
+                                <mat-list-item><button  *ngFor="let user of labelArray" (click)="addToLabel(note,user.id)" >{{user.label}}</button></mat-list-item>
+                                </mat-menu>
             </mat-menu>
           </div>
         </div>
@@ -83,14 +93,15 @@
 <br>
 <br>
 
-<div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around center">
+<div [fxLayout.gt-xs]="notesView?'row wrap':'column'" fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around center">
   <div *ngFor="let note of notesList| searchFilter : search">
-    <mat-card [style.background-color]="getBackgroundColor(note.color)"
+    <mat-card [style.background-color]="getBackgroundColor(note.color)" [style.min-width]="notesView?'':'200%'" [style.max-width]="notesView?'':'300%'"
+
       *ngIf="!note.isDeleted && !note.isArchived && !note.isPined" ngClass.lt-md="note-smaller-screen"
       ngClass.gt-md="note-bigger-screen" class="extra-actions">
 
       <div align="right">
-        <mat-icon matTooltip="Save" (click)="PinNote(note)">
+        <mat-icon matTooltip="Save" (click)="pinNote(note)">
           turned_in_not
         </mat-icon>
       </div>
@@ -108,6 +119,11 @@
           <button mat-mini-fab>{{user.firstName.charAt(0)}}</button>
         </mat-card-content>
       </div>
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-card-content   *ngFor="let user of note.noteLabels">
+                 <mat-chip-list><mat-chip>{{user.label}}<mat-icon (click)="removeLabel(note,user.id)">close</mat-icon></mat-chip></mat-chip-list>
+             </mat-card-content>
+             </div>
       <mat-card-actions>
 
         <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
@@ -149,6 +165,10 @@
             </mat-icon>
             <mat-menu #menu="matMenu">
               <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+              <button [matMenuTriggerFor]="menu1" (click)="getLabels()"mat-menu-item >add label</button>
+                            <mat-menu #menu1="matMenu">
+                                <mat-list-item><button  *ngFor="let user of labelArray" (click)="addToLabel(note,user.id)" >{{user.label}}</button></mat-list-item>
+                                </mat-menu>
             </mat-menu>
           </div>
         </div>

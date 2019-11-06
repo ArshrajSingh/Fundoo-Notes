@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   registrationForm: FormGroup;
 
   constructor(private http: UserServiceService, private titleService: Title, private snackBar: MatSnackBar, private router: Router) {
-    this.setTitle("Sign Up");
+    this.setTitle('Sign Up');
 
     this.registrationForm = new FormGroup({
       firstNameFormControl: new FormControl('', [
@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
       }, {
         validators: matchPassword
       })
-    })
+    });
   }
 
   public setTitle(newTitle: string) {
@@ -62,38 +62,40 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  signUp(serviceType): any {
+  signUp(): any {
     if (this.registrationForm.valid) {
       this.http.signUp({
         firstName: this.registrationForm.get('firstNameFormControl').value,
         lastName: this.registrationForm.get('lastNameFormControl').value,
         email: this.registrationForm.get('emailFormControl').value + '@gmail.com',
         password: this.registrationForm.get('passwordGroup').get('passwordFormControl').value,
-        service: serviceType
+        service: this.http.name,
+productId: this.http.productId,
+cartId: this.http.cartId
       });
       this.registrationForm.reset();
     } else {
 
       if (this.registrationForm.get('firstNameFormControl').invalid) {
-        this.snackBar.open("First Name Required and should have at least 5 alphabets", '', {
+        this.snackBar.open('First Name Required and should have at least 5 alphabets', '', {
           duration: 1500
         });
       }
 
       if (this.registrationForm.get('lastNameFormControl').invalid) {
-        this.snackBar.open("Last Name Required and should have at least 5 alphabets", '', {
+        this.snackBar.open('Last Name Required and should have at least 5 alphabets', '', {
           duration: 1500
         });
       }
 
       if (this.registrationForm.get('passwordGroup').invalid) {
-        this.snackBar.open("Errors in Password", '', {
+        this.snackBar.open('Errors in Password', '', {
           duration: 1500
         });
       }
 
       if (this.registrationForm.get('emailFormControl').invalid) {
-        this.snackBar.open("Invalid Email Address", '', {
+        this.snackBar.open('Invalid Email Address', '', {
           duration: 1500
         });
       }
@@ -101,12 +103,12 @@ export class RegisterComponent implements OnInit {
   }
 }
 
-function matchPassword(group: AbstractControl): { [key: string]: any } | null {
-  let password = group.get('passwordFormControl');
-  let confirm = group.get('confirmPasswordFormControl');
 
-  if (password.value === confirm.value) return null;
-  else {
+function matchPassword(group: AbstractControl): { [key: string]: any } | null {
+  const password = group.get('passwordFormControl');
+  const confirm = group.get('confirmPasswordFormControl');
+
+  if (password.value === confirm.value) { return null; } else {
     return {
       'Passwords do not Match': true
     };

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { environment } from 'src/app/environments/environment.prod';
+import { environment } from "src/app/environments/environment.prod";
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -13,12 +13,17 @@ export class HttpServiceService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  get(url, token) {
+  get(url,token) {
     let obs = this.http.get(environment.domainURL + url, {
       headers: new HttpHeaders({
         'Authorization': token
       })
     });
+    return obs;
+  }
+
+  get1(url) {
+    let obs = this.http.get(environment.domainURL + url)
     return obs;
   }
 
@@ -35,7 +40,7 @@ export class HttpServiceService {
     });
     return obs;
   }
-  delete(url, token) {
+  delete(url,token) {
     let obs = this.http.delete(environment.domainURL + url , {
       headers: new HttpHeaders({
         'Authorization': token

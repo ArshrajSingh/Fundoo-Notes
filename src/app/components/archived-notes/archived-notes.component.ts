@@ -11,7 +11,7 @@ export class ArchivedNotesComponent implements OnInit {
 
   noteColor = new FormControl('#FFFFFF');
   archiveNotesList: Array<any> = [];
-
+  notesView: Boolean = true;
   @Input() search;
 
   constructor(private svc: NoteService) {
@@ -30,6 +30,10 @@ export class ArchivedNotesComponent implements OnInit {
     this.fetchArchiveNotes();
     this.svc.currentDataSearch.subscribe((search: any) => {
       this.search = search;
+    });
+    this.svc.viewInfo.subscribe((data) => {
+      // console.log("data", data);
+      this.notesView = data;
     });
   }
 
