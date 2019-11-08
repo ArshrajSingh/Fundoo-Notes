@@ -123,3 +123,19 @@
 .sidenav-content {
   color: #440744;
 }
+.next-button{
+  background-color:#440744;
+  color: #e6e6e6;
+  float: right;
+}
+.next-button:hover{
+  background-color:#cc0891;
+  color: #e6e6e6;
+  float: right;
+}
+.mat-divider{
+  border-top-color:#440744;
+}
+::ng-deep .cdk-overlay-pane .profile{
+  min-width:600px;
+}

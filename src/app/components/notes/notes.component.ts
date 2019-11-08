@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { DialogComponent} from 'src/app/components/dialog/dialog.component';
 import { CollaboratorComponent } from '../collaborator/collaborator.component';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   noteId: string;
@@ -24,7 +25,6 @@ export interface DialogData {
 })
 export class NotesComponent implements OnInit  {
 
-  //events = new EventEmitter();
   service: any;
   collaboratorList: Array<any> = [];
   noteColor = new FormControl('#FFFFFF');
@@ -33,21 +33,32 @@ export class NotesComponent implements OnInit  {
   notesView: Boolean = true;
   labelArray: any[];
 
-  constructor(private noteSvc: NoteService , private dialog: MatDialog , private usvc: UserServiceService) {
+  constructor(private noteSvc: NoteService , private dialog: MatDialog , private usvc: UserServiceService, private router: Router) {
 
     this.noteSvc.events.addListener('note-saved-in-database', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.fetchAllNotes();
     });
+
+    this.usvc.events.addListener('reminderDeleted', () => {
+      // Fetch all notes from database
+      this.fetchAllNotes();
+    });
+
+    this.noteSvc.events.addListener('reminder-added', () => {
+      // Fetch all notes from database
+      this.fetchAllNotes();
+    });
+
     this.getService();
 
     this.usvc.events.addListener('basic-service', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.getService();
       this.fetchAllNotes();
     });
     this.usvc.events.addListener('advance-service', () => {
-      //Fetch all notes from database
+      // Fetch all notes from database
       this.getService();
       this.fetchAllNotes();
     });
@@ -107,7 +118,7 @@ export class NotesComponent implements OnInit  {
   // Fetch all notes
   getService() {
     this.service = localStorage.getItem('service');
-    console.log('apki service ka nam hai :'+ this.service);
+    console.log('apki service ka nam hai :' + this.service);
   }
 
   fetchAllNotes() {
@@ -163,10 +174,10 @@ export class NotesComponent implements OnInit  {
     };
     this.noteSvc.changeNoteColor(data);
   }
-  openDialog(note) {
 
+  openDialog(note) {
     this.dialog.open(DialogComponent , {
-      width:'250px',
+      width: '250px',
       data: {
         noteId: note.id,
         title: note.title,
@@ -197,7 +208,7 @@ unPinNote(note) {
 
 addCollab(note) {
   this.dialog.open(CollaboratorComponent, {
-    width: "450px",
+    width: '450px',
     data: {
       noteId: note.id,
       title: note.title,
@@ -227,6 +238,33 @@ addCollab(note) {
   removeLabel(note, id) {
     this.usvc.removeLabel(note, id);
 
+  }
+
+  removeReminder(note) {
+    const data = {
+      noteIdList: [note.id]
+    };
+    this.usvc.removeReminder(data);
+
+  }
+  compareDate(date) {
+    const today = new Date();
+    const givenDate = new Date(date);
+    // console.log(givenDate)
+
+    const dateWithNoTimeZone = new Date(
+      givenDate.getUTCFullYear(),
+      givenDate.getUTCMonth(),
+      givenDate.getUTCDate(),
+      givenDate.getUTCHours(),
+      givenDate.getUTCMinutes(),
+      givenDate.getUTCSeconds(),
+    );
+    // console.log(dateWithNoTimeZone)
+    return (today >= dateWithNoTimeZone);
+  }
+  question() {
+    this.router.navigateByUrl('question');
   }
 
 }

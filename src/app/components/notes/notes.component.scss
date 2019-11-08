@@ -47,4 +47,24 @@
       display: none;
     }
   }
+
+  .cross{
+    text-decoration: line-through;
+  }
+}
+.menu-item:hover{
+  background-color:#cc0891;
+  color: #e6e6e6;
+}
+.Hover{
+  background-color:rgba($color: #00000000, $alpha: 0.2);
+}
+.Hover:hover{
+  background-color:rgba($color:rgb(44, 44, 44) , $alpha: 0.4);
+}
+// .Collab{
+//   background-color:rgba($color: #353535, $alpha: 0.2);
+// }
+.Collab{
+  background-color:rgba($color:rgb(44, 44, 44) , $alpha: 0.5);
 }

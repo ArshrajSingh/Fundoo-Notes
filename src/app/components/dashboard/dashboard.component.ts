@@ -17,13 +17,13 @@ export interface DialogData {
   }
 
 @Component({
-  // tslint:disable-next-line: component-selector
   selector: 'app-components/dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   labelArray: any;
+  reminderArray: any;
   events = new EventEmitter();
   toggleView: Boolean = false;
   userName: string = localStorage.getItem('fName');
@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   hideLogo: Boolean = false;
   advancedUser: Boolean = true;
   service: string;
-  searchData : string;
+  searchData: string;
 
   noteColor = new FormControl('#FFFFFF');
 
@@ -61,6 +61,10 @@ export class DashboardComponent implements OnInit {
 
     this.usvc.events.addListener('advance-service', () => {
       this.getService();
+
+    });
+    this.usvc.events.addListener('sideLabelDeleted', () => {
+      this.getLabels();
 
     });
     this.usvc.events.addListener('label-added', () => {
@@ -116,16 +120,13 @@ export class DashboardComponent implements OnInit {
 
   fetchDeletedNotes() {
     this.hideNoteBar = true;
-    //console.log("button chal raha hai")
     this.router.navigate(['deleted'], {
       relativeTo: this.route
     });
   }
 
   fetchArchiveNotes() {
-    //console.log(this.searchString)
     this.hideNoteBar = true;
-    //console.log("button chal raha hai")
     this.router.navigate(['archive'], {
       relativeTo: this.route
     });
@@ -136,7 +137,6 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('login');
   }
   onStatusChanged() {
-
       this.noteSvc.searchData(this.searchData);
   }
 
@@ -180,5 +180,16 @@ export class DashboardComponent implements OnInit {
     obs.subscribe((response: any) => {
       this.labelArray = response.data.details;
     });
+  }
+
+  reminderNotes() {
+    this.hideNoteBar = true;
+    this.router.navigate(['showReminder'], {
+      relativeTo: this.route
+    });
+  }
+
+  refresh() {
+    window.location.reload();
   }
 }

@@ -4,10 +4,12 @@ import { NoteService } from 'src/app/services/note.service';
 import { MatDialog } from '@angular/material';
 import { CartComponent } from '../cart/cart.component';
 import { UserServiceService } from 'src/app/services/user-service.service';
-export interface id {
-  id: string;
-}
 
+export interface data {
+  id: string;
+  price: string;
+  type: string;
+}
 @Component({
   selector: 'app-service-purchase',
   templateUrl: './service-purchase.component.html',
@@ -27,9 +29,11 @@ export class ServicePurchaseComponent implements OnInit {
     obs.subscribe((response: any) => {
       this.dialog.open(CartComponent, {
         width: '450px',
+        height: '175px',
         data: {
-          id: response.data.data[1].id
-
+          id: response.data.data[1].id,
+          price: '$49/month',
+          type: 'Basic'
         }
 
       });
@@ -42,8 +46,11 @@ export class ServicePurchaseComponent implements OnInit {
     obs.subscribe((response: any) => {
       this.dialog.open(CartComponent, {
         width: '450px',
+        height: '175px',
         data: {
-          id: response.data.data[0].id
+          id: response.data.data[0].id,
+          price: '$99/month',
+          type: 'Advance'
 
         }
 

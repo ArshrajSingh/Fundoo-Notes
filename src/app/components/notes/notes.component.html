@@ -1,180 +1,250 @@
-<div [fxLayout.gt-xs]="notesView?'row wrap':'column'"  fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around center">
-  <div *ngFor="let note of notesList.reverse() | searchFilter : search">
-    <mat-card [style.background-color]="getBackgroundColor(note.color)"[style.min-width]="notesView?'':'200%'" [style.max-width]="notesView?'':'300%'"
-
-      *ngIf="!note.isDeleted && !note.isArchived && note.isPined" ngClass.lt-md="note-smaller-screen"
-      ngClass.gt-md="note-bigger-screen" class="extra-actions">
-
-      <div align="right">
-        <mat-icon matTooltip="Unsave" (click)="unPinNote(note)">
-          turned_in
-        </mat-icon>
-      </div>
-
-      <mat-card-title (click)="openDialog(note)">
-        {{note.title}}
-      </mat-card-title>
-
-      <mat-card-content>
-        {{note.description}}
-      </mat-card-content>
-      <div fxLayout="row" fxLayoutAlign="space-around center">
-        <mat-card-content *ngFor="let user of note.collaborators">
-          <button mat-mini-fab>{{user.firstName.charAt(0)}}</button>
-        </mat-card-content>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="space-around center">
-          <mat-card-content   *ngFor="let user of note.noteLabels">
-                 <mat-chip-list><mat-chip>{{user.label}}<mat-icon (click)="removeLabel(note,user.id)">close</mat-icon></mat-chip></mat-chip-list>
-             </mat-card-content>
-             </div>
-
-      <mat-card-actions>
-
-        <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
-
-          <div>
-            <mat-icon [matMenuTriggerFor]="menu1" matTooltip="Remind Me">
-              notifications_none
-            </mat-icon>
-            <mat-menu #menu1="matMenu">
-              Reminder:
-              <button mat-menu-item>Today</button>
-              <button mat-menu-item>Later Today</button>
-              <button mat-menu-item>Later Today</button>
-            </mat-menu>
-          </div>
-
-          <div>
-            <mat-icon matTooltip="Collaborator" (click)="addCollab(note)">
-              person_add
-            </mat-icon>
-          </div>
-
-          <div class="color-palette" matTooltip="Change color">
-            <mat-icon>
-              color_lens
-            </mat-icon>
-            <input (change)="changeColor(note)" [formControl]="noteColor" type="color" />
-          </div>
-
-          <div>
-            <mat-icon matTooltip="Add Image">
-              image
-            </mat-icon>
-          </div>
-
-          <div>
-            <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
-              archive
-            </mat-icon>
-          </div>
-
-          <div>
-            <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
-              more_vert
-            </mat-icon>
-            <mat-menu #menu="matMenu">
-              <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
-              <button [matMenuTriggerFor]="menu1" (click)="getLabels()"mat-menu-item >add label</button>
-                            <mat-menu #menu1="matMenu">
-                                <mat-list-item><button  *ngFor="let user of labelArray" (click)="addToLabel(note,user.id)" >{{user.label}}</button></mat-list-item>
-                                </mat-menu>
-            </mat-menu>
-          </div>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <h2>Pinned Notes</h2>
+  <div [fxLayout.gt-xs]="notesView?'row wrap':'column'" fxLayout.lt-md="column" fxLayoutGap="2px"
+    fxLayoutAlign="space-around center">
+    <div *ngFor="let note of notesList.reverse()  | searchFilter : search">
+      <mat-card [style.background-color]="getBackgroundColor(note.color)"
+        *ngIf="!note.isDeleted && !note.isArchived && note.isPined" ngClass.lt-md="note-smaller-screen"
+        ngClass.gt-md="note-bigger-screen" [style.min-width]="notesView?'':'200%'"
+        [style.max-width]="notesView?'':'300%'" class="extra-actions">
+        <div align="right">
+          <mat-icon matTooltip="unpin" (click)="unPinNote(note)">
+            turned_in
+          </mat-icon>
         </div>
 
-      </mat-card-actions>
+        <mat-card-title (click)="openDialog(note)">
+          {{note.title}}
+        </mat-card-title>
 
-    </mat-card>
+        <mat-card-content>
+          {{note.description}}
+        </mat-card-content>
+
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-card-content *ngFor="let user of note.collaborators" >
+            <button class="Collab" mat-mini-fab>{{user.firstName.charAt(0)}}</button >
+          </mat-card-content>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-card-content *ngFor="let user of note.noteLabels">
+            <mat-chip-list>
+              <mat-chip  class="Hover">{{user.label}}<mat-icon (click)="removeLabel(note,user.id)">close</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </mat-card-content>
+        </div>
+
+        <div>
+          <mat-card-content *ngFor="let user of note.reminder">
+            <mat-chip *ngIf="compareDate(note.reminder)" class="Hover">
+              <p style="text-decoration: line-through;">
+                {{user|date:'medium':'+0'}}
+              </p>
+              <mat-icon (click)="removeReminder(note)">close</mat-icon>
+            </mat-chip>
+            <mat-chip *ngIf="!compareDate(note.reminder)" class="Hover">
+              <p>
+                {{user|date:'medium':'+0'}}
+              </p>
+              <mat-icon (click)="removeReminder(note)">close</mat-icon>
+            </mat-chip>
+          </mat-card-content>
+        </div>
+
+
+
+
+
+        <mat-card-actions *ngIf="service=='advance'">
+
+          <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
+
+            <div>
+              <mat-icon [matMenuTriggerFor]="menu2" matTooltip="Remind Me">
+                notifications_none
+              </mat-icon>
+              <mat-menu #menu2="matMenu">
+                <app-reminder [note]="note"></app-reminder>
+
+
+              </mat-menu>
+            </div>
+
+            <div>
+              <mat-icon matTooltip="Collaborator" (click)="addCollab(note)">
+                person_add
+              </mat-icon>
+            </div>
+
+            <div class="color-palette" matTooltip="Change color">
+              <mat-icon>
+                color_lens
+              </mat-icon>
+              <input (change)="changeColor(note)" [formControl]="noteColor" type="color" />
+            </div>
+
+            <div>
+              <mat-icon matTooltip="Add Image">
+                image
+              </mat-icon>
+            </div>
+
+            <div>
+              <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
+                archive
+              </mat-icon>
+            </div>
+
+            <div>
+              <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
+                more_vert
+              </mat-icon>
+              <mat-menu #menu="matMenu">
+                <button class="menu-item" (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+                <button class="menu-item" (click)="question()" mat-menu-item>Ask Question</button>
+                <button class="menu-item" [matMenuTriggerFor]="menu1" (click)="getLabels()" mat-menu-item>add
+                  label</button>
+                <mat-menu #menu1="matMenu">
+                  <mat-list-item><button *ngFor="let user of labelArray" class="menu-item"
+                      (click)="addToLabel(note,user.id)">{{user.label}}</button></mat-list-item>
+                </mat-menu>
+              </mat-menu>
+            </div>
+          </div>
+
+        </mat-card-actions>
+
+      </mat-card>
+    </div>
   </div>
-</div>
+
+
 <br>
 <br>
 <br>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <h2>Un-Pinned Notes</h2>
+  <div [fxLayout.gt-xs]="notesView?'row wrap':'column'" fxLayout.lt-md="column" fxLayoutGap="2px"
+    fxLayoutAlign="space-around center">
+    <div *ngFor="let note of notesList  | searchFilter : search">
+      <mat-card [style.background-color]="getBackgroundColor(note.color)"
+        *ngIf="!note.isDeleted && !note.isArchived && !note.isPined" ngClass.lt-md="note-smaller-screen"
+        ngClass.gt-md="note-bigger-screen" [style.min-width]="notesView?'':'200%'"
+        [style.max-width]="notesView?'':'300%'" class="extra-actions">
+        <div align="right">
+          <mat-icon matTooltip="Pin" (click)="pinNote(note)">
+            turned_in_not
+          </mat-icon>
+        </div>
+        <mat-card-title (click)="openDialog(note)">
+          {{note.title}}
+        </mat-card-title>
 
-<div [fxLayout.gt-xs]="notesView?'row wrap':'column'" fxLayout.lt-md="column" fxLayoutGap="2px" fxLayoutAlign="space-around center">
-  <div *ngFor="let note of notesList| searchFilter : search">
-    <mat-card [style.background-color]="getBackgroundColor(note.color)" [style.min-width]="notesView?'':'200%'" [style.max-width]="notesView?'':'300%'"
-
-      *ngIf="!note.isDeleted && !note.isArchived && !note.isPined" ngClass.lt-md="note-smaller-screen"
-      ngClass.gt-md="note-bigger-screen" class="extra-actions">
-
-      <div align="right">
-        <mat-icon matTooltip="Save" (click)="pinNote(note)">
-          turned_in_not
-        </mat-icon>
-      </div>
-
-      <mat-card-title (click)="openDialog(note)">
-        {{note.title}}
-      </mat-card-title>
-
-      <mat-card-content>
-        {{note.description}}
-      </mat-card-content>
-
-      <div fxLayout="row" fxLayoutAlign="space-around center">
-        <mat-card-content *ngFor="let user of note.collaborators">
-          <button mat-mini-fab>{{user.firstName.charAt(0)}}</button>
+        <mat-card-content>
+          {{note.description}}
         </mat-card-content>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="space-around center">
-          <mat-card-content   *ngFor="let user of note.noteLabels">
-                 <mat-chip-list><mat-chip>{{user.label}}<mat-icon (click)="removeLabel(note,user.id)">close</mat-icon></mat-chip></mat-chip-list>
-             </mat-card-content>
-             </div>
-      <mat-card-actions>
 
-        <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
 
-          <div>
-            <mat-icon matTooltip="Remind Me">
-              notifications_none
-            </mat-icon>
-          </div>
-
-          <div>
-            <mat-icon matTooltip="Collaborator" (click)="addCollab(note)">
-              person_add
-            </mat-icon>
-          </div>
-
-          <div class="color-palette" matTooltip="Change color">
-            <mat-icon>
-              color_lens
-            </mat-icon>
-            <input (change)="changeColor(note)" [formControl]="noteColor" type="color" />
-          </div>
-
-          <div>
-            <mat-icon matTooltip="Add Image">
-              image
-            </mat-icon>
-          </div>
-
-          <div>
-            <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
-              archive
-            </mat-icon>
-          </div>
-
-          <div>
-            <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
-              more_vert
-            </mat-icon>
-            <mat-menu #menu="matMenu">
-              <button (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
-              <button [matMenuTriggerFor]="menu1" (click)="getLabels()"mat-menu-item >add label</button>
-                            <mat-menu #menu1="matMenu">
-                                <mat-list-item><button  *ngFor="let user of labelArray" (click)="addToLabel(note,user.id)" >{{user.label}}</button></mat-list-item>
-                                </mat-menu>
-            </mat-menu>
-          </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-card-content *ngFor="let user of note.collaborators">
+            <button class="Collab" mat-mini-fab>{{user.firstName.charAt(0)}}</button>
+          </mat-card-content>
         </div>
 
-      </mat-card-actions>
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <mat-card-content *ngFor="let user of note.noteLabels">
+            <mat-chip-list>
+              <mat-chip class="Hover">
+                {{user.label}}<mat-icon (click)="removeLabel(note,user.id)">close</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </mat-card-content>
+        </div>
 
-    </mat-card>
+        <div>
+          <mat-card-content *ngFor="let user of note.reminder">
+            <mat-chip *ngIf="compareDate(note.reminder)" class="Hover">
+                <mat-icon>access_time</mat-icon>
+                &nbsp;
+              <p style="text-decoration: line-through;">
+                {{user|date:'medium':'+0'}}
+              </p>
+              <mat-icon (click)="removeReminder(note)">close</mat-icon>
+            </mat-chip>
+            <mat-chip *ngIf="!compareDate(note.reminder)" class="Hover">
+                <mat-icon>access_time</mat-icon>
+                &nbsp;
+              <p>
+                {{user|date:'medium':'+0'}}
+              </p>
+              <mat-icon (click)="removeReminder(note)">close</mat-icon>
+            </mat-chip>
+          </mat-card-content>
+        </div>
+
+
+        <mat-card-actions *ngIf="service=='advance'">
+
+          <div style="color: black" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
+
+            <div>
+              <mat-icon [matMenuTriggerFor]="menu2" matTooltip="Remind Me">
+                notifications_none
+              </mat-icon>
+              <mat-menu #menu2="matMenu">
+                <app-reminder [note]="note"></app-reminder>
+
+
+              </mat-menu>
+            </div>
+
+            <div>
+              <mat-icon matTooltip="Collaborator" (click)="addCollab(note)">
+                person_add
+              </mat-icon>
+            </div>
+
+            <div class="color-palette" matTooltip="Change color">
+              <mat-icon>
+                color_lens
+              </mat-icon>
+              <input (change)="changeColor(note)" [formControl]="noteColor" type="color" />
+            </div>
+
+            <div>
+              <mat-icon matTooltip="Add Image">
+                image
+              </mat-icon>
+            </div>
+
+            <div>
+              <mat-icon (click)="archiveNote(note)" matTooltip="Archive">
+                archive
+              </mat-icon>
+            </div>
+
+            <div>
+              <mat-icon [matMenuTriggerFor]="menu" matTooltip="More">
+                more_vert
+              </mat-icon>
+              <mat-menu #menu="matMenu">
+                <button class="menu-item" (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
+                <button class="menu-item" (click)="question()" mat-menu-item>Ask Question</button>
+                <button class="menu-item" [matMenuTriggerFor]="menu1" (click)="getLabels()" mat-menu-item>add
+                  label</button>
+                <mat-menu #menu1="matMenu">
+                  <mat-list-item><button *ngFor="let user of labelArray" class="menu-item"
+                      (click)="addToLabel(note,user.id)">{{user.label}}</button></mat-list-item>
+                </mat-menu>
+              </mat-menu>
+            </div>
+          </div>
+
+        </mat-card-actions>
+
+      </mat-card>
+    </div>
   </div>
 </div>

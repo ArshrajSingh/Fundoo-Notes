@@ -30,9 +30,11 @@ body {
 
 .orange-color {
   @include color-picker(#02aaf8);
+  letter-spacing: 3px;
 }
 .brown-color{
   @include color-picker(#cc0891);
+  letter-spacing: 3px;
 }
 
 .next-button{
@@ -40,8 +42,13 @@ body {
   color: #e6e6e6;
   margin-left: 6%;
 }
+.next-button:hover{
+  background-color:#cc0891;
+  color: #e6e6e6;
+  margin-left: 6%;
+}
 .background {
-  background-image: url("https://i.pinimg.com/originals/a4/9b/5e/a49b5ee36c7e33298b259b2c099ad186.png");
+  background-image: url("src/app/components/background.png");
   background-repeat: no-repeat;
   background-size: cover;
 }

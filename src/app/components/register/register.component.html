@@ -95,15 +95,14 @@
         </form>
 
         <mat-card-content fxHide.xs="true">
-          <p>
-            Use 8 or more characters with a mix of letters, numbers & symbols
-          </p>
+          <p>Use 8 or more characters with a mix of letters, numbers & symbols</p>
         </mat-card-content>
 
         <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
           <div>
-            <a class="use-my-email" (click)="onClick()">Sign In instead</a>
+            <button (click)=onClick() mat-raised-button class="next-button1">Sign In instead </button>
           </div>
+
           <div>
             <button [matMenuTriggerFor]="menu" mat-raised-button class="next-button">
               Next

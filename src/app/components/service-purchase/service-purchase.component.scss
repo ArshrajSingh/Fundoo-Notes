@@ -40,13 +40,13 @@ mat-card-content{
   border-bottom-right-radius: 25px;
   border-top-right-radius: 25px;
 }
-width: 230px;
+width: 200px;
 
 position: absolute;
-right: 228px;
+right: 280px;
   height: 200px;
   border-radius: 10px;
-  margin-top: 8%;
+  margin-top: 20%;
   background-color: rgba(0, 0, 0, 0.253)
 }
 .background1{
@@ -58,13 +58,13 @@ mat-card-content{
   border-top-right-radius: 25px;
 }
 
-width: 230px;
+width: 200px;
 
 position: absolute;
 left: 280px;
   height: 200px;
   border-radius: 10px;
-  margin-top: 8%;
+  margin-top: 20%;
   background-color: rgba(0, 0, 0, 0.253)
 }
 
@@ -85,4 +85,9 @@ color:#440744;
 }
 .backcolor{
   background-color:rgba(200, 187, 247, 0.993);
+}
+.Background {
+  background-image: url("src/app/components/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }

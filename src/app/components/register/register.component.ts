@@ -77,25 +77,25 @@ cartId: this.http.cartId
     } else {
 
       if (this.registrationForm.get('firstNameFormControl').invalid) {
-        this.snackBar.open('First Name Required and should have at least 5 alphabets', '', {
+        this.snackBar.open('First Name Required and should have at least 5 alphabets', 'Dismiss', {
           duration: 1500
         });
       }
 
       if (this.registrationForm.get('lastNameFormControl').invalid) {
-        this.snackBar.open('Last Name Required and should have at least 5 alphabets', '', {
+        this.snackBar.open('Last Name Required and should have at least 5 alphabets', 'Dismiss', {
           duration: 1500
         });
       }
 
       if (this.registrationForm.get('passwordGroup').invalid) {
-        this.snackBar.open('Errors in Password', '', {
+        this.snackBar.open('Errors in Password', 'Dismiss', {
           duration: 1500
         });
       }
 
       if (this.registrationForm.get('emailFormControl').invalid) {
-        this.snackBar.open('Invalid Email Address', '', {
+        this.snackBar.open('Invalid Email Address', 'Dismiss', {
           duration: 1500
         });
       }

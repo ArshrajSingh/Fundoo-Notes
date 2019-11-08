@@ -18,11 +18,12 @@
           <input matInput placeholder="Search your notes" [(ngModel)]="searchData" (keyup)="onStatusChanged()">
         </mat-form-field>
       </div>
-      <button mat-button mat-icon-button style="margin-left:60%;color: #440744" (click)="clearSearch();onStatusChanged();">
-          <i class="material-icons">
-            close
-          </i>
-        </button>
+      <button mat-button mat-icon-button style="margin-left:60%;color: #440744"
+        (click)="clearSearch();onStatusChanged();">
+        <i class="material-icons">
+          close
+        </i>
+      </button>
     </div>
 
     <!-- This fills the remaining space of the current row -->
@@ -36,14 +37,22 @@
         <mat-icon class="material-icons" style="color: #440744">search</mat-icon>
       </div> -->
       <div ngClass.xs=three-icons-in-header-smaller-screen>
-        <mat-icon matTooltip="refresh" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">refresh</mat-icon>
+        <mat-icon matTooltip="refresh" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">refresh
+        </mat-icon>
       </div>
-      <div ngClass.gt-xs=three-icons-in-header-bigger-screen >
-          <div fxLayoutAlign="center center" *ngIf="toggleView" (click)="toggleViewNote()" fxHide.lt-sm="true" matTooltip="List view"><mat-icon style="color: rgba(200, 187, 247, 0.993)">list</mat-icon></div>
-          <div fxLayoutAlign="center center" *ngIf="!toggleView" (click)="toggleViewNote()" fxHide.lt-sm="true" matTooltip="Grid view"><mat-icon style="color: rgba(200, 187, 247, 0.993)">view_comfy</mat-icon></div>
+      <div ngClass.gt-xs=three-icons-in-header-bigger-screen>
+        <div fxLayoutAlign="center center" *ngIf="toggleView" (click)="toggleViewNote()" fxHide.lt-sm="true"
+          matTooltip="List view">
+          <mat-icon style="color: rgba(200, 187, 247, 0.993)">list</mat-icon>
         </div>
+        <div fxLayoutAlign="center center" *ngIf="!toggleView" (click)="toggleViewNote()" fxHide.lt-sm="true"
+          matTooltip="Grid view">
+          <mat-icon style="color: rgba(200, 187, 247, 0.993)">view_comfy</mat-icon>
+        </div>
+      </div>
       <div ngClass.gt-xs=three-icons-in-header-bigger-screen ngClass.xs=three-icons-in-header-smaller-screen>
-        <mat-icon matTooltip="Settings" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">settings</mat-icon>
+        <mat-icon matTooltip="Settings" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">settings
+        </mat-icon>
       </div>
 
     </div>
@@ -54,9 +63,20 @@
     <!-- Log Out Icon -->
     <div fxLayout="row" fxLayoutAlign="space-around" ngClass="log-out-icon">
       <!-- <mat-icon class="material-icons" style="color: grey">mood_bad</mat-icon> -->
-      <button mat-mini-fab color="" matTooltip="Log Out" (click) =  logout()>
+      <button mat-mini-fab color="" matTooltip="Log Out" mat-icon-button [matMenuTriggerFor]="profile">
         <mat-icon>account_circle</mat-icon>
       </button>
+
+      <mat-menu #profile ="matMenu">
+
+              <mat-card-header>
+                   <img mat-card-avatar src="https://source.unsplash.com/random/200x200">
+                  <mat-card-title><strong>{{userName}}</strong></mat-card-title>
+                  <mat-card-subtitle>{{userEmail}}</mat-card-subtitle>
+              </mat-card-header>
+
+          <button class="next-button" mat-button (click)=logout()><mat-icon>exit_to_app</mat-icon>&nbsp;<span> Logout</span></button>
+      </mat-menu>
     </div>
   </mat-toolbar>
 </div>
@@ -75,42 +95,42 @@
       <mat-nav-list style="margin-left:4%">
 
         <mat-list-item class="sidenav-content" (click)="allNotes()">
-          <mat-icon class="sideNavText" >note</mat-icon>
+          <mat-icon class="sideNavText">note</mat-icon>
           <h3 class="sideNavText" style="margin-left:18%">
             Notes
           </h3>
         </mat-list-item>
 
+        <mat-list-item class="sidenav-content" (click)="reminderNotes()" >
+            <i class="material-icons">notifications_none</i>
+            <h3 style="margin-left:18%">
+              Reminders
+            </h3>
+          </mat-list-item>
+
+        <mat-divider></mat-divider>
+        <mat-list-item class="sideNavText">
+          <p>LABELS</p>
+        </mat-list-item>
+        <mat-list-item *ngFor="let label of labelArray" class="sidenav-content">
+          <mat-icon class="sideNavText">label</mat-icon>
+          <h3 (click)="showLabels(label.label)" class="sideNavText"  style="margin-left:18%">
+            {{label.label}}
+          </h3>
+        </mat-list-item>
         <mat-list-item class="sidenav-content">
-          <i class="material-icons">notifications_none</i>
-          <h3 class="sideNavText" style="margin-left:18%">
-            Reminders
+
+          <i class="material-icons">colorize</i>
+          <h3 style="margin-left:18%" (click)="labels()">
+            Edit labels
           </h3>
         </mat-list-item>
 
         <mat-divider></mat-divider>
-        <mat-list-item class="sideNavText">
-            <p>LABELS</p>
-          </mat-list-item>
-          <mat-list-item *ngFor="let label of labelArray">
-            <mat-icon class="sideNavText">label</mat-icon>
-            <h3 (click)="showLabels(label.label)" class="sideNavText" style="margin-left:18%">
-              {{label.label}}
-            </h3>
-          </mat-list-item>
-          <mat-list-item class="sidenav-content">
-
-            <i class="material-icons">colorize</i>
-            <h3 style="margin-left:18%" (click)="labels()">
-              Edit labels
-            </h3>
-          </mat-list-item>
-
-        <mat-divider></mat-divider>
 
 
-        <mat-list-item class="sidenav-content" style="margin-top: 4%" (click) = "fetchArchiveNotes()">
-          <mat-icon class="sideNavText" >archive</mat-icon>
+        <mat-list-item class="sidenav-content" style="margin-top: 4%" (click)="fetchArchiveNotes()">
+          <mat-icon class="sideNavText">archive</mat-icon>
           <h3 class="sideNavText" style="margin-left:18%">
             Archive
           </h3>
@@ -118,7 +138,7 @@
 
 
         <mat-list-item class="sidenav-content" (click)="fetchDeletedNotes()">
-          <mat-icon class="sideNavText" >delete_outline</mat-icon>
+          <mat-icon class="sideNavText">delete_outline</mat-icon>
           <h3 class="sideNavText" style="margin-left:18%">
             Bin
           </h3>
@@ -135,7 +155,8 @@
       <div fxLayout="column" fxLayoutAlign="space-around center">
 
         <!-- Search bar-->
-        <div [fxHide]="hideNoteBar" ngClass.xs="complete-search-bar-minimized" ngClass.gt-xs="complete-search-bar-maximized">
+        <div [fxHide]="hideNoteBar" ngClass.xs="complete-search-bar-minimized"
+          ngClass.gt-xs="complete-search-bar-maximized">
 
           <!-- Minimized -->
 
@@ -171,7 +192,8 @@
           </mat-card>
 
           <!-- Maximized -->
-          <mat-card style="border-radius : 10px;" ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide' [fxHide]='hideNoteBar'>
+          <mat-card style="border-radius : 10px;" ngClass.xs="mat-card-maximized-small-screen" [fxHide]='!hide'
+            [fxHide]='hideNoteBar'>
             <mat-card-title fxLayout="row" fxLayoutAlign="space-between">
               <input [formControl]='title' matInput placeholder="Title">
               <mat-icon [fxHide]="!advancedUser" class="material-icons">
@@ -179,7 +201,8 @@
               </mat-icon>
             </mat-card-title>
             <mat-card-subtitle>
-              <textarea [formControl]='content' style="color:black" matTextareaAutosize matInput placeholder="Take a note..."></textarea>
+              <textarea [formControl]='content' style="color:black" matTextareaAutosize matInput
+                placeholder="Take a note..."></textarea>
             </mat-card-subtitle>
             <mat-card-actions>
 

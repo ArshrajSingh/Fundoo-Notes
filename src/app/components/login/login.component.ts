@@ -15,7 +15,7 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(private router: Router, private http: UserServiceService, private snackBar: MatSnackBar, private titleService: Title) {
-    this.setTitle("Log In");
+    this.setTitle('Log In');
     this.loginForm = new FormGroup({
 
       emailFormControl: new FormControl('', [
@@ -26,7 +26,7 @@ export class LoginComponent {
       passwordFormControl: new FormControl('', [
         Validators.required
       ])
-    })
+    });
   }
 
   public setTitle(newTitle: string) {
@@ -40,12 +40,12 @@ export class LoginComponent {
   logIn(): void {
     if (this.loginForm.invalid) {
       if (this.loginForm.get('emailFormControl').invalid) {
-        this.snackBar.open("Invalid Email Address", '', {
+        this.snackBar.open('Invalid Email Address', 'Dismiss', {
           duration: 1500
         });
       }
       if (this.loginForm.get('passwordFormControl').invalid) {
-        this.snackBar.open("Password required", '', {
+        this.snackBar.open('Password required', 'Dismiss', {
           duration: 1500
         });
       }
@@ -53,7 +53,7 @@ export class LoginComponent {
       this.http.logIn({
         email: this.loginForm.get('emailFormControl').value,
         password: this.loginForm.get('passwordFormControl').value
-      })
+      });
       this.loginForm.reset();
     }
 
@@ -62,7 +62,7 @@ export class LoginComponent {
   forgotPassword(): void {
     this.http.forgotPassword({
       email: this.loginForm.get('emailFormControl').value
-    })
+    });
   }
 
 }

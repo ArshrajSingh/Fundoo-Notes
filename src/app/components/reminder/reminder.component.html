@@ -1,0 +1,22 @@
+<div (click)="$event.stopPropagation()" style="padding: 1.5em;">
+    <div [matMenuTriggerFor]="appMenu" style="display: inline" fxLayout="row" fxLayoutAlign="space-around">
+      <mat-icon>access_time</mat-icon>
+      &nbsp;
+      <ng-container style="margin-left: 10%">Pick Date & Time</ng-container>
+      <mat-menu #appMenu="matMenu">
+        <div style="display: inline;" fxLayout="row" fxLayoutAlign="space-around">
+          <ng-container>Pick Date & Time</ng-container>
+        </div>
+        <mat-divider></mat-divider>
+        <!-- mat-form-field> -->
+        <input matInput [matDatepicker]="picker" [formControl]="date" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <!-- </mat-form-field> -->
+        <input (click)="$event.stopPropagation()" matInput [formControl]="time" placeholder="enter time">
+
+        <button class="save-button" mat-raised-button (click)="showTime()">Save</button>
+      </mat-menu>
+    </div>
+
+  </div>

@@ -37,14 +37,10 @@
       <div class="create-account-next-div" flexLayout="row" fxLayoutAlign="space-between">
         <mat-card-content fxLayoutAlign="start">
           <div style="margin-left:-13%">
-            <button mat-button [matMenuTriggerFor]="menu" mat-raised-button class="next-button">
+            <button (click)="onClick()" mat-raised-button class="next-button">
               <!-- Learn more class has same colour and no specific margin, hence used here -->
               Create Account
             </button>
-            <mat-menu #menu="matMenu">
-              <button (click)="onClick()" mat-menu-item>For Myself</button>
-              <button mat-menu-item>To Manage My Business</button>
-            </mat-menu>
           </div>
         </mat-card-content>
         <mat-card-content fxLayoutAlign="end">

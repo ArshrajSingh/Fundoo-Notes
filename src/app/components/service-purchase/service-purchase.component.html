@@ -1,13 +1,14 @@
-<div>
-  <mat-toolbar style="min-width: 320px">
-    <div class="fundo">
-      <img src="/src/spring-square.png">
-      <div class="orange-color"><strong>Fun</strong></div>
-      <div class="brown-color"><strong>doo</strong></div>
-      <div class="orange-color"><strong> Notes</strong></div>
-    </div>
-  </mat-toolbar>
-</div>
+<div fxFlexFill fxLayout="column" class="Background">
+  <div>
+    <mat-toolbar style="min-width: 320px">
+      <div class="fundo">
+        <img src="/src/spring-square.png">
+        <div class="orange-color"><strong>Fun</strong></div>
+        <div class="brown-color"><strong>doo</strong></div>
+        <div class="orange-color"><strong> Notes</strong></div>
+      </div>
+    </mat-toolbar>
+  </div>
 
   <h2 align="center" class="title">Please choose any of the services, to proceed further</h2>
   <mat-card class="background" (click)="basic()">
@@ -29,43 +30,39 @@
 
     <mat-card class="card" ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
       <mat-card-title>
-          Price: $99 per month
+        Price: $99 per month
       </mat-card-title>
       <mat-card-subtitle>
-          Advanced Service
+        Advanced Service
       </mat-card-subtitle>
-      <mat-card-subtitle>
-          advanced
-          </mat-card-subtitle>
-          <mat-card-content >
-             <div >
-             <ul>
-                 <li>$99 per month</li>
-                 <li>Ability to add title,description, images,labels,checklist and colors.</li>
-                 </ul>
-                 </div>
-          </mat-card-content>
+
+      <mat-card-content>
+        <div>
+          <ul>
+            <li>$99 per month</li>
+            <li>Ability to add title,description, images,labels,checklist and colors.</li>
+          </ul>
+        </div>
+      </mat-card-content>
     </mat-card>
 
     <mat-card ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
       <mat-card-title>
-          Price: $49 per month
+        Price: $49 per month
       </mat-card-title>
       <mat-card-subtitle>
-          Basic Service
+        Basic Service
       </mat-card-subtitle>
 
-      <mat-card-subtitle>
-          basic
-          </mat-card-subtitle>
-          <mat-card-content>
-             <ul>
-                 <li>$49 per month</li>
-                 <li>Ability to add only title and description.</li>
-                 </ul>
-          </mat-card-content>
+      <mat-card-content>
+        <ul>
+          <li>$49 per month</li>
+          <li>Ability to add only title and description.</li>
+        </ul>
+      </mat-card-content>
     </mat-card>
   </div>
   <div fxLayoutAlign="center">
     <button mat-raised-button class="signin" (click)=signIn()> Sign in Instead </button>
   </div>
+</div>
