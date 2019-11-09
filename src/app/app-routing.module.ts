@@ -23,7 +23,8 @@ const routes: Routes = [
       {path: '', component: NotesComponent},
       {path: 'archive', component: ArchivedNotesComponent},
       {path: 'show-labels/:label', component: ShowLabelsComponent},
-      {path: 'showReminder', component: ShowReminderComponent}
+      {path: 'showReminder', component: ShowReminderComponent},
+      {path: 'question/:noteId', component: QuestionComponent},
     ]
   },
   { path: 'resetpassword/:token', component: ResetPasswordComponent },

@@ -6,7 +6,6 @@ import { Title } from '@angular/platform-browser';
 import { FormControl, Validators } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { getDefaultService } from 'selenium-webdriver/edge';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { LabelsComponent } from '../labels/labels.component';
 import { MatDialog } from '@angular/material';
@@ -17,6 +16,7 @@ export interface DialogData {
   }
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'app-components/dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']

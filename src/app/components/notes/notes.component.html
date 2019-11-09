@@ -52,6 +52,11 @@
             </mat-chip>
           </mat-card-content>
         </div>
+      <div *ngIf="note.questionAndAnswerNotes.length>0">
+      <hr>
+      questions:
+      <mat-chip [innerHTML]="note.questionAndAnswerNotes[0].message"></mat-chip>
+      </div>
 
 
 
@@ -103,7 +108,7 @@
               </mat-icon>
               <mat-menu #menu="matMenu">
                 <button class="menu-item" (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
-                <button class="menu-item" (click)="question()" mat-menu-item>Ask Question</button>
+                <button class="menu-item" (click)="question(note)" mat-menu-item>Ask Question</button>
                 <button class="menu-item" [matMenuTriggerFor]="menu1" (click)="getLabels()" mat-menu-item>add
                   label</button>
                 <mat-menu #menu1="matMenu">
@@ -183,7 +188,11 @@
             </mat-chip>
           </mat-card-content>
         </div>
-
+        <div *ngIf="note.questionAndAnswerNotes.length>0">
+          <hr>
+          questions:
+          <mat-chip [innerHTML]="note.questionAndAnswerNotes[0].message"></mat-chip>
+          </div>
 
         <mat-card-actions *ngIf="service=='advance'">
 
@@ -231,7 +240,7 @@
               </mat-icon>
               <mat-menu #menu="matMenu">
                 <button class="menu-item" (click)="deleteNote(note)" mat-menu-item>Delete Note</button>
-                <button class="menu-item" (click)="question()" mat-menu-item>Ask Question</button>
+                <button class="menu-item" (click)="question(note)" mat-menu-item>Ask Question</button>
                 <button class="menu-item" [matMenuTriggerFor]="menu1" (click)="getLabels()" mat-menu-item>add
                   label</button>
                 <mat-menu #menu1="matMenu">

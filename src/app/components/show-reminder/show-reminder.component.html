@@ -3,8 +3,7 @@
                 <mat-card [style.background-color]="getBackgroundColor(label.color)" [style.min-width]="notesView?'':'200%'" [style.max-width]="notesView?'':'300%'"
                 ngClass.lt-md="note-smaller-screen" ngClass.gt-md="note-bigger-screen" class="extra-actions">
 
-                <mat-card-title
-                (click)="openDialog(note)">
+                <mat-card-title>
                   {{label.title}}
                 </mat-card-title>
 

@@ -5,6 +5,7 @@ import { DialogComponent } from '../components/dialog/dialog.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CollaboratorComponent } from '../components/collaborator/collaborator.component';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -19,17 +20,16 @@ export class NoteService {
 
   private searchDataSource = new BehaviorSubject(this.search);
   currentDataSearch = this.searchDataSource.asObservable();
-
   private viewMode: BehaviorSubject<any> = new BehaviorSubject(true);
   viewInfo = this.viewMode.asObservable();
 
-
   events = new EventEmitter();
 
-  constructor(private http: HttpServiceService
+  constructor(private http: HttpServiceService, private router: Router
   ) { }
 
   fetchAllNotes(): any {
+    console.log;
     return this.http.get('notes/getNotesList', this.token);
   }
   fetchDeletedNotes() {
@@ -45,10 +45,6 @@ export class NoteService {
       //console.log("syapa")
     });
 
-  }
-
-  changeView(data) {
-    this.viewMode.next(data);
   }
 
   saveRetrivedNote(data) {
@@ -166,6 +162,9 @@ export class NoteService {
     this.search = search;
     this.searchDataSource.next(search);
   }
+  changeView(data) {
+    this.viewMode.next(data);
+  }
   //noteId:any=localStorage.getItem('noteId')
   searchUserList(user, noteId) {
 
@@ -186,10 +185,11 @@ export class NoteService {
 
     const obs = this.http.postWithToken('user/searchUserList', user, this.token);
     obs.subscribe((response: any) => {
-
+      //console.log(response.data.details[0].userId);
+      //console.log(this.noteId)
       const obs1 = this.http.delete('notes/' + noteId + '/removeCollaboratorsNotes/' + response.data.details[0].userId, this.token);
       obs1.subscribe((response: any) => {
-
+        //console.log("ho gaya remove")
         this.events.emit('collaborator-removed');
       });
     });
@@ -198,13 +198,27 @@ export class NoteService {
   fetchAllLabels() {
     return this.http.get('noteLabels/getNoteLabelList', this.token);
   }
-
-
   addReminder(data) {
     const obs = this.http.postWithToken('notes/addUpdateReminderNotes', data, this.token);
     obs.subscribe(response => {
       console.log('reminder added');
       this.events.emit('reminder-added');
-  });
-}
+    });
+  }
+  showQuestion(data) {
+    const obs = this.http.postWithToken('/questionAndAnswerNotes/addQuestionAndAnswer', data, this.token);
+    obs.subscribe((response: any) => {
+      console.log('puch lia question');
+      this.events.emit('question-asked');
+    });
+  }
+  getQuestion(data) {
+    const obs1 = this.http.get('/notes/getNotesDetail/' + data, this.token);
+    return obs1;
+  }
+  question(note) {
+    console.log(note);
+    this.router.navigate(['dashboard/question', note.id]);
+    this.events.emit('hide-bar');
+  }
 }

@@ -149,4 +149,19 @@ removeReminder(data) {
     return this.http.get('/notes/getReminderNotesList ', this.token);
 
   }
+  showQuestion(data) {
+    let obs = this.http.postWithToken('/questionAndAnswerNotes/addQuestionAndAnswer', data, this.token);
+    obs.subscribe((response: any) => {
+      console.log("puch lia question");
+      this.events.emit('question-asked');
+    });
+  }
+  getQuestion(data) {
+    let obs1 = this.http.get('/notes/getNotesDetail/' + data, this.token);
+    return obs1;
+  }
+  question(note) {
+    this.router.navigate(['dashboard/question', note.id]);
+    this.events.emit('hide-bar');
+  }
 }

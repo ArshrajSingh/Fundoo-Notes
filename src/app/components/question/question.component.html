@@ -1,3 +1,19 @@
-<p>
-  question works!
-</p>
+<div>
+  <h3>{{note.title}}</h3>
+  <h4>{{note.description}}</h4>
+  <hr>
+</div>
+
+<div class="card">
+  <form (ngSubmit)="showQuestion()">
+    <textarea [froalaEditor] [formControl]="question"></textarea>
+    <button class="button" mat-raised-button type="submit">submit</button>
+  </form>
+</div>
+
+<div *ngFor="let item of note.questionAndAnswerNotes">
+  <p>{{item.user.firstName }}:</p>
+  <p [innerHTML]="item.message"></p>
+  <div>
+
+  </div>
