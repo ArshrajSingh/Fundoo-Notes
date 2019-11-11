@@ -10,9 +10,10 @@
       <div class="brown-color"><strong>doo</strong></div>
       <div class="orange-color"><strong> Notes</strong></div>
     </div>
+
     <!-- Search bar in header -->
-    <div fxHide.xs="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
-      <!-- <mat-icon style="margin-left:1%;color: #440744" class="material-icons">search</mat-icon> -->
+    <div  style="margin-left:50px;" fxHide.xs="true" class="search-box-in-header" fxLayout="row" fxLayoutAlign="start center">
+
       <div style="margin-left:5%">
         <mat-form-field appearance="fill legacy" style="width:335%; margin-top: 8%">
           <input matInput placeholder="Search your notes" [(ngModel)]="searchData" (keyup)="onStatusChanged()">
@@ -26,8 +27,7 @@
       </button>
     </div>
 
-    <!-- This fills the remaining space of the current row -->
-    <span class="fill-remaining-space"></span>
+    <span style="flex:1 1 auto"></span>
 
 
     <!-- Three Icons -->
@@ -37,7 +37,7 @@
         <mat-icon class="material-icons" style="color: #440744">search</mat-icon>
       </div> -->
       <div ngClass.xs=three-icons-in-header-smaller-screen>
-        <mat-icon matTooltip="refresh" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">refresh
+        <mat-icon matTooltip="refresh" class="material-icons" style="color: rgba(200, 187, 247, 0.993)" (click)=refresh()>refresh
         </mat-icon>
       </div>
       <div ngClass.gt-xs=three-icons-in-header-bigger-screen>
@@ -51,7 +51,7 @@
         </div>
       </div>
       <div ngClass.gt-xs=three-icons-in-header-bigger-screen ngClass.xs=three-icons-in-header-smaller-screen>
-        <mat-icon matTooltip="Settings" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">settings
+        <mat-icon matTooltip="Shopping Cart" class="material-icons" style="color: rgba(200, 187, 247, 0.993)">shopping_cart
         </mat-icon>
       </div>
 
@@ -62,7 +62,6 @@
 
     <!-- Log Out Icon -->
     <div fxLayout="row" fxLayoutAlign="space-around" ngClass="log-out-icon">
-      <!-- <mat-icon class="material-icons" style="color: grey">mood_bad</mat-icon> -->
       <button mat-mini-fab color="" matTooltip="Log Out" mat-icon-button [matMenuTriggerFor]="profile">
         <mat-icon>account_circle</mat-icon>
       </button>
@@ -82,7 +81,8 @@
 </div>
 
 <!-- Rest of Page -->
-<div style="display: flex; flex-flow: column">
+<div style="flex-flow: column;">
+
 
   <mat-sidenav-container style="min-height: 605px">
 
@@ -92,7 +92,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
 
-      <mat-nav-list style="margin-left:4%">
+      <mat-nav-list [fxHide]="!advancedUser" style="margin-left:4%">
 
         <mat-list-item class="sidenav-content" (click)="allNotes()">
           <mat-icon class="sideNavText">note</mat-icon>
@@ -112,16 +112,16 @@
         <mat-list-item class="sideNavText">
           <p>LABELS</p>
         </mat-list-item>
-        <mat-list-item *ngFor="let label of labelArray" class="sidenav-content">
+        <mat-list-item *ngFor="let label of labelArray" class="sidenav-content" (click)="showLabels(label.label)">
           <mat-icon class="sideNavText">label</mat-icon>
-          <h3 (click)="showLabels(label.label)" class="sideNavText"  style="margin-left:18%">
+          <h3 class="sideNavText"  style="margin-left:18%">
             {{label.label}}
           </h3>
         </mat-list-item>
-        <mat-list-item class="sidenav-content">
 
+        <mat-list-item class="sidenav-content" (click)="labels()">
           <i class="material-icons">colorize</i>
-          <h3 style="margin-left:18%" (click)="labels()">
+          <h3 style="margin-left:18%">
             Edit labels
           </h3>
         </mat-list-item>
@@ -206,56 +206,79 @@
             </mat-card-subtitle>
             <mat-card-actions>
 
-              <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full">
+              <div style="color: grey" fxLayout="row" fxLayoutAlign="space-around center" ngClass.xs="occupy-full" [fxHide]="!advancedUser">
 
                 <div [fxHide]="!advancedUser">
-                  <mat-icon class="material-icons" matTooltip="Remind Me">
+                  <mat-icon  class="material-icons" matTooltip="Remind Me"
+                    [matMenuTriggerFor]="menu2">
                     notifications
                   </mat-icon>
+                  <mat-menu #menu2="matMenu">
+                    <app-reminder (myEvents)="demo($event)"></app-reminder>
+                  </mat-menu>
                 </div>
 
-                <div [fxHide]="!advancedUser">
+                <div>
                   <mat-icon class="material-icons" matTooltip="Collaborator">
                     person_add
                   </mat-icon>
                 </div>
 
-                <div [fxHide]="!advancedUser" class="color-palette">
-                  <mat-icon class="material-icons" matTooltip="Change color">
-                    color_lens
-                  </mat-icon>
-                  <input [formControl]="noteColor" type="color" />
-                </div>
+                <div>
+                    <button mat-icon-button color="" [matMenuTriggerFor]="cardColorMenu">
+                        <mat-icon matTooltip="Change color">color_lens</mat-icon>
+                      </button>
+                      <mat-menu #cardColorMenu="matMenu" fxlayoutAlign="space-around center" fxLayoutGap="2%">
+                        <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                            <div mat-menu-item (click)="updateBackgroundColor('#F5F5EC')" style="background-color: rgb(165, 165, 165);"></div>
+                            <div mat-menu-item (click)="updateBackgroundColor('#EB716B')" style="background-color: #EB716B;"></div>
+                            <div mat-menu-item (click)="updateBackgroundColor('#FCE42A')" style="background-color: #FCE42A"></div>
+                            <div mat-menu-item (click)="updateBackgroundColor('#6DE391')" style="background-color: #6DE391;"></div>
+                          </div>
+                          <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                            <div mat-menu-item (click)="updateBackgroundColor('#1597DB')" style="background-color: #1597DB;"></div>
+                            <div mat-menu-item (click)="updateBackgroundColor('#08ECF2')" style="background-color: #08ECF2;"></div>
+                            <div mat-menu-item (click)="updateBackgroundColor('#8C7FBF')" style="background-color: #8C7FBF;"></div>
+                            <div mat-menu-item (click)="updateBackgroundColor('#D37CE2')" style="background-color: #D37CE2;"></div>
+                          </div>
+                          <div fxLayout="row wrap" class="mat-menu-div" fxLayoutAlign="space-around center">
+                            <div mat-menu-item (click)="updateBackgroundColor('#FF8632')" style="background-color: #FF8632"></div>
+                            <div mat-menu-item (click)="updateBackgroundColor('#EA7AC9')" style="background-color: #EA7AC9;"></div>
+                            <div mat-menu-item (click)="updateBackgroundColor('#A35237')" style="background-color: #959592;"></div>
+                            <div mat-menu-item (click)="updateBackgroundColor('#A35237')" style="background-color: #c3f352;"></div>
+                        </div>
+                      </mat-menu>
+                  </div>
 
-                <div [fxHide]="!advancedUser">
+                <div>
                   <mat-icon class="material-icons" matTooltip="Add Image">
                     image
                   </mat-icon>
                 </div>
 
-                <div [fxHide]="!advancedUser">
+                <div>
                   <mat-icon class="material-icons" matTooltip="Archive">
                     archive
                   </mat-icon>
                 </div>
 
-                <div [fxHide]="!advancedUser">
+                <!-- <div>
                   <mat-icon class="material-icons" matTooltip="More">
                     more_vert
                   </mat-icon>
                 </div>
 
-                <div [fxHide]="!advancedUser">
+                <div>
                   <mat-icon class="material-icons" matTooltip="Undo">
                     undo
                   </mat-icon>
                 </div>
 
-                <div [fxHide]="!advancedUser">
+                <div>
                   <mat-icon class="material-icons" matTooltip="Redo">
                     redo
                   </mat-icon>
-                </div>
+                </div> -->
 
                 <div style="color: black" fxHide.xs="true">
                   <button mat-button (click)="changeHide();saveNote()">
@@ -264,7 +287,7 @@
                 </div>
               </div>
 
-              <div [fxHide]="!advancedUser" align="right" style="color: black" fxHide.gt-xs="true">
+              <div align="right" style="color: black" fxHide.gt-xs="true">
                 <button mat-button (click)="hide = !hide">
                   Close
                 </button>

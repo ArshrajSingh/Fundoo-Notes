@@ -55,3 +55,10 @@ body {
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
   color: #cc0891 !important;
 }
+.mat-menu-div{
+  div{
+      width:15px;
+      height:35px;
+      border-radius: 50%;
+  }
+}

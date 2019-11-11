@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NoteService } from 'src/app/services/note.service';
 
@@ -11,7 +11,8 @@ export class ReminderComponent implements OnInit {
   events = new EventEmitter();
 
   @Input('note') note;
-
+  @Output('reminder') reminder;
+  @Output() myEvents = new EventEmitter();
 
   time = new FormControl('', []);
   date = new FormControl('', []);
@@ -50,10 +51,14 @@ export class ReminderComponent implements OnInit {
   }
 
   addReminder(reminder) {
-    console.log(this.note);
-    this.noteSvc.addReminder({
-      noteIdList: [this.note.id],
-      reminder: reminder
-    });
+    if (this.note == null) {
+      this.myEvents.emit(reminder);
+    } else {
+      this.noteSvc.addReminder({
+        noteIdList: [this.note.id],
+        reminder: reminder
+      });
+    }
+
   }
 }

@@ -29,7 +29,6 @@ export class NoteService {
   ) { }
 
   fetchAllNotes(): any {
-    console.log;
     return this.http.get('notes/getNotesList', this.token);
   }
   fetchDeletedNotes() {
@@ -37,12 +36,10 @@ export class NoteService {
     return this.http.get('notes/getTrashNotesList', this.token);
   }
   deleteForever(data) {
-    //console.log("from note.service")
     const obs = this.http.postWithToken('notes/deleteForeverNotes', data, this.token);
     obs.subscribe((response) => {
       this.events.emit('deleted forever');
     }, error => {
-      //console.log("syapa")
     });
 
   }
@@ -66,10 +63,10 @@ export class NoteService {
   unarchive(data) {
     const obs = this.http.postWithToken('notes/archiveNotes', data, this.token);
     obs.subscribe(response => {
-      //Note Archived
+      // Note Archived
       this.events.emit('note-unarchived');
     }, error => {
-      //Some error in archiving note
+      // Some error in archiving note
     });
 
   }
@@ -98,40 +95,40 @@ export class NoteService {
   deleteNote(data) {
     const obs = this.http.postWithToken('notes/trashNotes', data, this.token);
     obs.subscribe(response => {
-      //Note Deleted Successfully
+      // Note Deleted Successfully
       this.events.emit('note-deleted-in-database');
     }, error => {
-      //Some error in deleting Note
+      // Some error in deleting Note
     });
   }
 
   deleteArchiveNote(data) {
     const obs = this.http.postWithToken('notes/trashNotes', data, this.token);
     obs.subscribe(response => {
-      //Note Deleted Successfully
+      // Note Deleted Successfully
       this.events.emit('note-deleted-in-archive');
     }, error => {
-      //Some error in deleting Note
+      // Some error in deleting Note
     });
   }
 
   changeNoteColor(data) {
     const obs = this.http.postWithToken('notes/changesColorNotes', data, this.token);
     obs.subscribe(response => {
-      //Color of note changed
+      // Color of note changed
       this.events.emit('note-color-changed-in-database');
     }, error => {
-      //Some error in changing color of note
+      // Some error in changing color of note
     });
   }
 
   archiveNote(data) {
     const obs = this.http.postWithToken('notes/archiveNotes', data, this.token);
     obs.subscribe(response => {
-      //Note Archived
+      // Note Archived
       this.events.emit('note-archived-in-database');
     }, error => {
-      //Some error in archiving note
+      // Some error in archiving note
     });
   }
 
@@ -149,7 +146,6 @@ export class NoteService {
       for (let i = 0; i < response.length; i++) {
         this.array.push(response[i].email);
       }
-      //console.log(this.array)
       localStorage.setItem('string', JSON.stringify(this.array));
       // console.log(localStorage.getItem('string'));
       // for(let i=0;i<response.length;i++){
@@ -165,13 +161,11 @@ export class NoteService {
   changeView(data) {
     this.viewMode.next(data);
   }
-  //noteId:any=localStorage.getItem('noteId')
+
   searchUserList(user, noteId) {
 
     const obs = this.http.postWithToken('user/searchUserList', user, this.token);
     obs.subscribe((response: any) => {
-      //console.log(response);
-      //console.log(this.noteId)
       const obs1 = this.http.postWithToken('notes/' + noteId + '/AddcollaboratorsNotes', response.data.details[0], this.token);
       obs1.subscribe((response: any) => {
         this.events.emit('collaborator-added');
@@ -185,11 +179,10 @@ export class NoteService {
 
     const obs = this.http.postWithToken('user/searchUserList', user, this.token);
     obs.subscribe((response: any) => {
-      //console.log(response.data.details[0].userId);
-      //console.log(this.noteId)
+      // console.log(response.data.details[0].userId);
+      // console.log(this.noteId)
       const obs1 = this.http.delete('notes/' + noteId + '/removeCollaboratorsNotes/' + response.data.details[0].userId, this.token);
       obs1.subscribe((response: any) => {
-        //console.log("ho gaya remove")
         this.events.emit('collaborator-removed');
       });
     });

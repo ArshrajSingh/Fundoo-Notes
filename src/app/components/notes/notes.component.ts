@@ -264,8 +264,8 @@ addCollab(note) {
     return (today >= dateWithNoTimeZone);
   }
   question(note) {
-    console.log(note)
-    //this.hideNoteBar = true;
-    this.noteSvc.question(note)
+    console.log(note);
+    // this.hideNoteBar = true;
+    this.noteSvc.question(note);
   }
 }
